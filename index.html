@@ -4,25 +4,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Anrose Clinic – phòng khám chuyên khoa da liễu, chăm sóc da và công nghệ thẩm mỹ cao cấp." />
-  <title>Anrose Clinic</title>
+  <meta name="theme-color" content="#fffdf9" />
+  <title>Anrose Clinic – Phòng khám chuyên khoa da liễu</title>
   <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/favicon-192.png?v=20261028-logo1" />
   <link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48 64x64" href="favicon.ico?v=20261028-logo1" />
   <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png?v=20261028-logo1" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20261028-offers5" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=20261028-redesign1" />
+  <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
+  <div class="scroll-progress" aria-hidden="true"><span></span></div>
+
   <header class="site-header" id="top">
     <div class="container nav-wrap">
-      <a class="brand" href="#top" aria-label="Anrose Clinic">
-        <span class="brand-main">Anrose Clinic</span>
-        <span class="brand-sub">Phòng khám chuyên khoa da liễu</span>
+      <a class="brand" href="#top" aria-label="Anrose Clinic – về đầu trang">
+        <img class="brand-logo" src="assets/icons/anrose-logo-wordmark.png" alt="" width="720" height="242" />
+        <span class="visually-hidden">Anrose Clinic – Phòng khám chuyên khoa da liễu</span>
       </a>
       <button class="menu-toggle" type="button" aria-label="Mở menu" aria-expanded="false" aria-controls="main-navigation"><span></span><span></span><span></span></button>
       <nav class="main-nav" id="main-navigation" aria-label="Điều hướng chính">
-        <a href="#about">Giới thiệu</a><a href="#services">Dịch vụ</a><a href="#consultation">Thăm khám</a><a href="#treatment">Điều trị</a><a href="#space">Không gian</a><a href="#feedback">Feedback</a><a class="nav-cta" href="#contact">Tư vấn</a>
+        <a href="#campaign">Ưu đãi</a><a href="#about">Giới thiệu</a><a href="#services">Dịch vụ</a><a href="#consultation">Thăm khám</a><a href="#treatment">Điều trị</a><a href="#space">Không gian</a><a href="#feedback">Feedback</a><a class="nav-cta" href="#contact">Đặt lịch tư vấn</a>
       </nav>
     </div>
   </header>
@@ -33,118 +37,134 @@
         <img src="assets/images/cover-20-10.webp" alt="Anrose Clinic – Ngập tràn yêu thương, ưu đãi vấn vương – chào mừng 20/10" width="2048" height="692" fetchpriority="high" />
       </button>
     </section>
-    <section class="campaign section-pad soft" id="campaign">
+
+    <section class="campaign section-pad" id="campaign">
       <div class="container">
-        <div class="section-heading campaign-heading"><p class="eyebrow">ANROSE CLINIC</p><h2><span>Chương trình</span> <em>ưu đãi</em></h2><p class="section-intro">Khám phá các chương trình dành cho bạn tại Anrose. Nhấn vào từng ảnh để xem chi tiết.</p></div>
         <div class="campaign-carousel" role="region" aria-roledescription="carousel" aria-label="Chương trình ưu đãi">
-        <div class="campaign-grid" id="campaign-slides" tabindex="0" aria-label="Vuốt hoặc dùng phím mũi tên để xem ưu đãi">
-          <button class="media-card poster-card js-lightbox" type="button" data-full="assets/images/gallery/promo-love-20-10.webp" data-offer-title="Ngập tràn yêu thương" data-offer-price="Ưu đãi 80% · Voucher 299.000đ" data-offer-description="Chương trình chào mừng ngày Phụ nữ Việt Nam 20/10 tại Anrose Clinic." data-alt="Ngập tràn yêu thương – chương trình ưu đãi 20/10 tại Anrose Clinic"><img src="assets/images/gallery/promo-love-20-10.webp" alt="Ngập tràn yêu thương – chương trình ưu đãi 20/10 tại Anrose Clinic" width="2048" height="2048" loading="lazy" /></button>
-          <button class="media-card poster-card js-lightbox" type="button" data-full="assets/images/gallery/promo-hifu-20-10.webp" data-offer-title="Nâng cơ HIFU Doublo New" data-offer-price="2.999.000đ" data-offer-description="Gói nâng cơ HIFU Doublo New trong chương trình ưu đãi 20/10." data-alt="Ưu đãi nâng cơ HIFU Doublo New – 2.999K"><img src="assets/images/gallery/promo-hifu-20-10.webp" alt="Ưu đãi nâng cơ HIFU Doublo New – 2.999K" width="2048" height="1878" loading="lazy" /></button>
-          <button class="media-card poster-card js-lightbox" type="button" data-full="assets/images/gallery/promo-pores-20-10.webp" data-offer-title="Thu nhỏ lỗ chân lông" data-offer-price="399.000đ" data-offer-description="Gói dịch vụ thu nhỏ lỗ chân lông trong chương trình ưu đãi 20/10." data-alt="Ưu đãi thu nhỏ lỗ chân lông – 399K"><img src="assets/images/gallery/promo-pores-20-10.webp" alt="Ưu đãi thu nhỏ lỗ chân lông – 399K" width="2048" height="1878" loading="lazy" /></button>
-          <button class="media-card poster-card js-lightbox" type="button" data-full="assets/images/gallery/promo-hair-removal-20-10.webp" data-offer-title="Triệt lông" data-offer-price="299.000đ" data-offer-description="Gói triệt lông trong chương trình ưu đãi 20/10." data-alt="Ưu đãi triệt lông – 299K"><img src="assets/images/gallery/promo-hair-removal-20-10.webp" alt="Ưu đãi triệt lông – 299K" width="2048" height="1878" loading="lazy" /></button>
-          <button class="media-card poster-card js-lightbox" type="button" data-full="assets/images/gallery/promo-skin-care-20-10.webp" data-offer-title="Chăm sóc da chuyên sâu" data-offer-price="299.000đ" data-offer-description="Gói chăm sóc da chuyên sâu trong chương trình ưu đãi 20/10." data-alt="Ưu đãi chăm sóc da chuyên sâu – 299K"><img src="assets/images/gallery/promo-skin-care-20-10.webp" alt="Ưu đãi chăm sóc da chuyên sâu – 299K" width="2048" height="1878" loading="lazy" /></button>
-          <button class="media-card poster-card js-lightbox" type="button" data-full="assets/images/gallery/promo-acne-20-10.webp" data-offer-title="Điều trị mụn" data-offer-price="299.000đ" data-offer-description="Gói dịch vụ điều trị mụn trong chương trình ưu đãi 20/10." data-alt="Ưu đãi điều trị mụn – 299K"><img src="assets/images/gallery/promo-acne-20-10.webp" alt="Ưu đãi điều trị mụn – 299K" width="2048" height="1878" loading="lazy" /></button>
-          <button class="media-card poster-card js-lightbox" type="button" data-full="assets/images/gallery/promo-aging.webp" data-offer-title="Trẻ hóa da" data-offer-price="2.999.000đ" data-offer-description="Chương trình ưu đãi trẻ hóa da tại Anrose Clinic." data-alt="Thiết kế ưu đãi trẻ hóa tại Anrose Clinic"><img src="assets/images/gallery/promo-aging.webp" alt="Thiết kế ưu đãi trẻ hóa tại Anrose Clinic" loading="lazy" /></button>
-          <button class="media-card poster-card js-lightbox" type="button" data-full="assets/images/gallery/promo-laser-pores.webp" data-offer-title="Laser se khít lỗ chân lông" data-offer-price="399.000đ" data-offer-description="Gói laser se khít lỗ chân lông trong chương trình ưu đãi tháng 10." data-alt="Thiết kế ưu đãi laser tại Anrose Clinic"><img src="assets/images/gallery/promo-laser-pores.webp" alt="Thiết kế ưu đãi laser tại Anrose Clinic" loading="lazy" /></button>
-        </div>
-        <div class="campaign-caption" aria-live="polite" aria-atomic="true">
-          <h3 class="campaign-offer-title">Ngập tràn yêu thương</h3>
-          <p class="campaign-offer-price">Ưu đãi 80% · Voucher 299.000đ</p>
-          <p class="campaign-offer-description">Chương trình chào mừng ngày Phụ nữ Việt Nam 20/10 tại Anrose Clinic.</p>
-        </div>
-        <div class="campaign-controls" hidden>
-          <span class="campaign-count" aria-live="polite" aria-atomic="true">01 / 08</span>
-          <div class="campaign-progress" aria-hidden="true"><span></span></div>
-          <button class="campaign-prev" type="button" aria-label="Ưu đãi trước" aria-controls="campaign-slides"><span aria-hidden="true">←</span></button>
-          <button class="campaign-next" type="button" aria-label="Ưu đãi tiếp theo" aria-controls="campaign-slides"><span aria-hidden="true">→</span></button>
-        </div>
+          <div class="campaign-stage reveal">
+            <div class="campaign-grid" id="campaign-slides" tabindex="0" aria-label="Vuốt hoặc dùng phím mũi tên để xem ưu đãi">
+              <button class="media-card poster-card js-lightbox" type="button" data-full="assets/images/gallery/promo-love-20-10.webp" data-offer-title="Ngập tràn yêu thương" data-offer-price="Ưu đãi 80% · Voucher 299.000đ" data-offer-description="Chương trình chào mừng ngày Phụ nữ Việt Nam 20/10 tại Anrose Clinic." data-alt="Ngập tràn yêu thương – chương trình ưu đãi 20/10 tại Anrose Clinic"><img src="assets/images/gallery/promo-love-20-10.webp" alt="Ngập tràn yêu thương – chương trình ưu đãi 20/10 tại Anrose Clinic" width="2048" height="2048" /></button>
+              <button class="media-card poster-card js-lightbox" type="button" data-full="assets/images/gallery/promo-hifu-20-10.webp" data-offer-title="Nâng cơ HIFU Doublo New" data-offer-price="2.999.000đ" data-offer-description="Gói nâng cơ HIFU Doublo New trong chương trình ưu đãi 20/10." data-alt="Ưu đãi nâng cơ HIFU Doublo New – 2.999K"><img src="assets/images/gallery/promo-hifu-20-10.webp" alt="Ưu đãi nâng cơ HIFU Doublo New – 2.999K" width="2048" height="1878" loading="lazy" /></button>
+              <button class="media-card poster-card js-lightbox" type="button" data-full="assets/images/gallery/promo-pores-20-10.webp" data-offer-title="Thu nhỏ lỗ chân lông" data-offer-price="399.000đ" data-offer-description="Gói dịch vụ thu nhỏ lỗ chân lông trong chương trình ưu đãi 20/10." data-alt="Ưu đãi thu nhỏ lỗ chân lông – 399K"><img src="assets/images/gallery/promo-pores-20-10.webp" alt="Ưu đãi thu nhỏ lỗ chân lông – 399K" width="2048" height="1878" loading="lazy" /></button>
+              <button class="media-card poster-card js-lightbox" type="button" data-full="assets/images/gallery/promo-hair-removal-20-10.webp" data-offer-title="Triệt lông" data-offer-price="299.000đ" data-offer-description="Gói triệt lông trong chương trình ưu đãi 20/10." data-alt="Ưu đãi triệt lông – 299K"><img src="assets/images/gallery/promo-hair-removal-20-10.webp" alt="Ưu đãi triệt lông – 299K" width="2048" height="1878" loading="lazy" /></button>
+              <button class="media-card poster-card js-lightbox" type="button" data-full="assets/images/gallery/promo-skin-care-20-10.webp" data-offer-title="Chăm sóc da chuyên sâu" data-offer-price="299.000đ" data-offer-description="Gói chăm sóc da chuyên sâu trong chương trình ưu đãi 20/10." data-alt="Ưu đãi chăm sóc da chuyên sâu – 299K"><img src="assets/images/gallery/promo-skin-care-20-10.webp" alt="Ưu đãi chăm sóc da chuyên sâu – 299K" width="2048" height="1878" loading="lazy" /></button>
+              <button class="media-card poster-card js-lightbox" type="button" data-full="assets/images/gallery/promo-acne-20-10.webp" data-offer-title="Điều trị mụn" data-offer-price="299.000đ" data-offer-description="Gói dịch vụ điều trị mụn trong chương trình ưu đãi 20/10." data-alt="Ưu đãi điều trị mụn – 299K"><img src="assets/images/gallery/promo-acne-20-10.webp" alt="Ưu đãi điều trị mụn – 299K" width="2048" height="1878" loading="lazy" /></button>
+              <button class="media-card poster-card js-lightbox" type="button" data-full="assets/images/gallery/promo-aging.webp" data-offer-title="Trẻ hóa da" data-offer-price="2.999.000đ" data-offer-description="Chương trình ưu đãi trẻ hóa da tại Anrose Clinic." data-alt="Thiết kế ưu đãi trẻ hóa tại Anrose Clinic"><img src="assets/images/gallery/promo-aging.webp" alt="Thiết kế ưu đãi trẻ hóa tại Anrose Clinic" loading="lazy" /></button>
+              <button class="media-card poster-card js-lightbox" type="button" data-full="assets/images/gallery/promo-laser-pores.webp" data-offer-title="Laser se khít lỗ chân lông" data-offer-price="399.000đ" data-offer-description="Gói laser se khít lỗ chân lông trong chương trình ưu đãi tháng 10." data-alt="Thiết kế ưu đãi laser tại Anrose Clinic"><img src="assets/images/gallery/promo-laser-pores.webp" alt="Thiết kế ưu đãi laser tại Anrose Clinic" loading="lazy" /></button>
+            </div>
+            <span class="campaign-badge" aria-hidden="true">Ưu đãi tháng 10</span>
+          </div>
+
+          <div class="campaign-panel reveal delay-1">
+            <p class="eyebrow">Chương trình ưu đãi</p>
+            <h2>Ưu đãi <em>dành riêng cho bạn</em></h2>
+            <p class="section-intro">Lựa chọn chương trình phù hợp, nhấn vào ảnh để xem chi tiết hoặc đặt lịch tư vấn ngay.</p>
+
+            <div class="campaign-caption" aria-live="polite" aria-atomic="true">
+              <span class="campaign-count">01 / 08</span>
+              <h3 class="campaign-offer-title">Ngập tràn yêu thương</h3>
+              <p class="campaign-offer-price">Ưu đãi 80% · Voucher 299.000đ</p>
+              <p class="campaign-offer-description">Chương trình chào mừng ngày Phụ nữ Việt Nam 20/10 tại Anrose Clinic.</p>
+            </div>
+
+            <div class="campaign-actions">
+              <a class="btn btn-primary btn-arrow campaign-book" href="#contact">Đặt lịch ưu đãi này</a>
+              <button class="btn btn-ghost campaign-zoom" type="button">Xem ảnh lớn</button>
+            </div>
+
+            <div class="campaign-controls" hidden>
+              <div class="campaign-progress" aria-hidden="true"><span></span></div>
+              <div class="campaign-dots" aria-hidden="true"></div>
+              <div class="carousel-arrows">
+                <button class="campaign-prev" type="button" aria-label="Ưu đãi trước" aria-controls="campaign-slides"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+                <button class="campaign-next" type="button" aria-label="Ưu đãi tiếp theo" aria-controls="campaign-slides"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
     <section class="hero section-pad" id="about">
       <div class="container hero-grid">
-        <div class="hero-copy reveal">
-          <p class="eyebrow">ANROSE CLINIC · MEDICAL AESTHETIC</p>
-          <h1>Kiến tạo vẻ đẹp<br><em>theo cách riêng của bạn</em></h1>
-          <p class="lead">Không gian da liễu – thẩm mỹ theo định hướng tối giản, tinh tế và cá nhân hóa. Mỗi liệu trình bắt đầu từ việc hiểu đúng làn da.</p>
-          <div class="hero-actions"><a class="btn btn-primary" href="#contact">Đặt lịch tư vấn</a><a class="btn btn-ghost" href="#technology">Khám phá công nghệ</a></div>
-          <div class="hero-meta">
+        <div class="hero-copy">
+          <p class="eyebrow reveal">Anrose Clinic · Medical Aesthetic</p>
+          <h1 class="reveal delay-1">Kiến tạo vẻ đẹp <em>theo cách riêng của bạn</em></h1>
+          <p class="lead reveal delay-2">Không gian da liễu – thẩm mỹ theo định hướng tối giản, tinh tế và cá nhân hóa. Mỗi liệu trình bắt đầu từ việc hiểu đúng làn da.</p>
+          <div class="hero-actions reveal delay-3"><a class="btn btn-primary btn-arrow" href="#contact">Đặt lịch tư vấn</a><a class="btn btn-ghost" href="#technology">Khám phá công nghệ</a></div>
+          <div class="hero-meta reveal delay-3">
             <div><strong>Bác sĩ</strong><span>thăm khám trực tiếp</span></div>
             <div><strong>Cá nhân hóa</strong><span>theo từng làn da</span></div>
             <div><strong>Công nghệ</strong><span>thiết bị hiện đại</span></div>
           </div>
         </div>
         <div class="hero-media reveal delay-1">
-          <div class="ribbed-bg"></div>
-          <img src="assets/images/hero.png" alt="Không gian thẩm mỹ Anrose Clinic" fetchpriority="high" />
-          <div class="gold-arc"></div>
+          <div class="hero-arch"><img src="assets/images/hero.png" alt="Không gian thẩm mỹ Anrose Clinic" width="1254" height="1254" /></div>
           <div class="hero-glass-stack" aria-hidden="true">
             <div class="hero-glass-pill"><span>01</span><strong>Thăm khám trực tiếp</strong></div>
             <div class="hero-glass-pill"><span>02</span><strong>Phác đồ cá nhân hóa</strong></div>
             <div class="hero-glass-pill"><span>03</span><strong>Công nghệ hiện đại</strong></div>
           </div>
+          <div class="hero-orbit" aria-hidden="true"></div>
         </div>
       </div>
     </section>
 
-
-
-    <section class="section-pad" id="services">
+    <section class="services section-pad soft" id="services">
       <div class="container">
-        <div class="section-heading reveal"><p class="eyebrow">DỊCH VỤ NỔI BẬT</p><h2>Chăm sóc đúng nhu cầu,<br><em>đẹp theo cách tự nhiên</em></h2></div>
+        <div class="section-heading reveal"><p class="eyebrow">Dịch vụ nổi bật</p><h2>Chăm sóc đúng nhu cầu,<br><em>đẹp theo cách tự nhiên</em></h2><p class="section-intro">Mỗi dịch vụ được tư vấn sau thăm khám, phù hợp với tình trạng và mong muốn riêng của từng khách hàng.</p></div>
         <div class="service-grid">
-          <article class="service-card reveal"><img src="assets/images/skin-care.png" alt="Chăm sóc da" loading="lazy" /><div class="service-body"><span>01</span><h3>Chăm sóc & phục hồi da</h3><p>Tập trung làm sạch, cấp ẩm, phục hồi và duy trì nền da khỏe.</p></div></article>
-          <article class="service-card reveal delay-1"><img src="assets/images/laser-co2.png" alt="Laser CO2 Fractional" loading="lazy" /><div class="service-body"><span>02</span><h3>Laser & cải thiện bề mặt da</h3><p>Ứng dụng công nghệ theo tình trạng da và chỉ định phù hợp.</p></div></article>
-          <article class="service-card reveal delay-2"><img src="assets/images/treatment.png" alt="Điều trị da tại Anrose Clinic" loading="lazy" /><div class="service-body"><span>03</span><h3>Trẻ hóa & nâng cơ</h3><p>Hướng tới đường nét gọn gàng, săn chắc và vẻ ngoài tươi tắn.</p></div></article>
+          <article class="service-card reveal"><div class="service-media"><img src="assets/images/skin-care.png" alt="Chăm sóc da" width="1254" height="1254" loading="lazy" /></div><div class="service-body"><span>01</span><h3>Chăm sóc &amp; phục hồi da</h3><p>Tập trung làm sạch, cấp ẩm, phục hồi và duy trì nền da khỏe.</p><a class="service-link" href="#contact" data-service="Chăm sóc da">Tư vấn dịch vụ</a></div></article>
+          <article class="service-card reveal delay-1"><div class="service-media"><img src="assets/images/laser-co2.png" alt="Laser CO2 Fractional" width="1254" height="1254" loading="lazy" /></div><div class="service-body"><span>02</span><h3>Laser &amp; cải thiện bề mặt da</h3><p>Ứng dụng công nghệ theo tình trạng da và chỉ định phù hợp.</p><a class="service-link" href="#contact" data-service="Laser">Tư vấn dịch vụ</a></div></article>
+          <article class="service-card reveal delay-2"><div class="service-media"><img src="assets/images/treatment.png" alt="Điều trị da tại Anrose Clinic" width="1254" height="1254" loading="lazy" /></div><div class="service-body"><span>03</span><h3>Trẻ hóa &amp; nâng cơ</h3><p>Hướng tới đường nét gọn gàng, săn chắc và vẻ ngoài tươi tắn.</p><a class="service-link" href="#contact" data-service="HIFU Doublo New">Tư vấn dịch vụ</a></div></article>
         </div>
       </div>
     </section>
 
-    <section class="technology section-pad soft" id="technology" aria-label="Công nghệ cao">
-      <div class="container technology-carousel" role="region" aria-roledescription="carousel" aria-label="Các công nghệ tại Anrose">
+    <section class="technology section-pad" id="technology" aria-label="Công nghệ cao">
+      <div class="container technology-carousel reveal" role="region" aria-roledescription="carousel" aria-label="Các công nghệ tại Anrose">
         <div class="technology-viewport" id="technology-slides">
           <article class="tech-grid technology-slide" data-name="HIFU Doublo New" role="group" aria-roledescription="slide" aria-label="1 / 3 · HIFU Doublo New">
-        <div class="tech-copy"><p class="eyebrow">CÔNG NGHỆ CAO</p><h2>HIFU Doublo New</h2><p class="lead-sm">Một trong những công nghệ nổi bật tại Anrose, phù hợp định hướng nâng cơ – trẻ hóa theo phác đồ cá nhân hóa.</p><ul class="check-list"><li>Thăm khám và xác định vùng cần tác động</li><li>Lựa chọn mức năng lượng theo tình trạng thực tế</li><li>Quy trình rõ ràng, ưu tiên trải nghiệm thoải mái</li><li>Theo dõi và tư vấn chăm sóc sau liệu trình</li></ul><a class="btn btn-primary" href="#contact" data-service="HIFU Doublo New">Tư vấn HIFU</a></div>
-        <div class="tech-media"><img src="assets/images/hifu.png" alt="Máy HIFU Doublo New" loading="lazy" /></div>
+            <div class="tech-copy"><p class="eyebrow">Công nghệ cao</p><h2>HIFU Doublo New</h2><p class="lead-sm">Một trong những công nghệ nổi bật tại Anrose, phù hợp định hướng nâng cơ – trẻ hóa theo phác đồ cá nhân hóa.</p><ul class="check-list"><li>Thăm khám và xác định vùng cần tác động</li><li>Lựa chọn mức năng lượng theo tình trạng thực tế</li><li>Quy trình rõ ràng, ưu tiên trải nghiệm thoải mái</li><li>Theo dõi và tư vấn chăm sóc sau liệu trình</li></ul><a class="btn btn-primary btn-arrow" href="#contact" data-service="HIFU Doublo New">Tư vấn HIFU</a></div>
+            <div class="tech-media"><img src="assets/images/hifu.png" alt="Máy HIFU Doublo New" width="1254" height="1254" loading="lazy" /></div>
           </article>
           <article class="tech-grid technology-slide" data-name="Scahil" role="group" aria-roledescription="slide" aria-label="2 / 3 · Scahil">
             <div class="tech-copy">
-              <p class="eyebrow">CÔNG NGHỆ CAO</p>
+              <p class="eyebrow">Công nghệ cao</p>
               <h2>Scahil</h2>
               <p class="lead-sm">Thiết bị laser CO₂ fractional của WONTECH. Trao đổi cùng Anrose để được tư vấn theo nhu cầu và tình trạng da.</p>
               <ul class="check-list"><li>Thăm khám trước khi lựa chọn liệu trình</li><li>Tư vấn theo nhu cầu của từng làn da</li><li>Hướng dẫn chăm sóc và theo dõi sau liệu trình</li></ul>
-              <a class="btn btn-primary" href="#contact" data-service="Scahil">Tư vấn Scahil</a>
+              <a class="btn btn-primary btn-arrow" href="#contact" data-service="Scahil">Tư vấn Scahil</a>
             </div>
-            <div class="tech-media technology-device"><img src="assets/images/scahil.jpg" alt="Máy Scahil của WONTECH" loading="lazy" /></div>
+            <div class="tech-media technology-device"><img src="assets/images/scahil.jpg" alt="Máy Scahil của WONTECH" width="800" height="1010" loading="lazy" /></div>
           </article>
           <article class="tech-grid technology-slide" data-name="Pico Majesty" role="group" aria-roledescription="slide" aria-label="3 / 3 · Pico Majesty">
             <div class="tech-copy">
-              <p class="eyebrow">CÔNG NGHỆ CAO</p>
+              <p class="eyebrow">Công nghệ cao</p>
               <h2>Pico Majesty</h2>
               <p class="lead-sm">Thiết bị laser picosecond của WONTECH. Trao đổi cùng Anrose để tìm hiểu công nghệ và lựa chọn hướng chăm sóc phù hợp.</p>
               <ul class="check-list"><li>Thăm khám trước khi lựa chọn liệu trình</li><li>Tư vấn theo nhu cầu của từng làn da</li><li>Hướng dẫn chăm sóc và theo dõi sau liệu trình</li></ul>
-              <a class="btn btn-primary" href="#contact" data-service="Pico Majesty">Tư vấn Pico Majesty</a>
+              <a class="btn btn-primary btn-arrow" href="#contact" data-service="Pico Majesty">Tư vấn Pico Majesty</a>
             </div>
             <div class="tech-media technology-device"><img src="assets/images/pico-majesty.jpg" alt="Máy Pico Majesty của WONTECH" loading="lazy" /></div>
           </article>
         </div>
         <div class="technology-controls" hidden>
           <div class="technology-status" aria-live="polite" aria-atomic="true"><span class="technology-count">01 / 03</span><span class="technology-name">HIFU Doublo New</span></div>
-          <div class="technology-arrows">
-            <button class="technology-prev" type="button" aria-label="Công nghệ trước" aria-controls="technology-slides"><span aria-hidden="true">←</span></button>
-            <button class="technology-next" type="button" aria-label="Công nghệ tiếp theo" aria-controls="technology-slides"><span aria-hidden="true">→</span></button>
+          <div class="carousel-arrows technology-arrows">
+            <button class="technology-prev" type="button" aria-label="Công nghệ trước" aria-controls="technology-slides"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+            <button class="technology-next" type="button" aria-label="Công nghệ tiếp theo" aria-controls="technology-slides"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="consultation section-pad" id="consultation">
+    <section class="consultation section-pad soft" id="consultation">
       <div class="container">
-        <div class="section-heading reveal"><p class="eyebrow">THĂM KHÁM & TƯ VẤN</p><h2>Bắt đầu bằng việc<br><em>lắng nghe và hiểu đúng</em></h2><p class="section-intro">Không gian tư vấn được bố trí riêng tư, để khách hàng trao đổi nhu cầu và được giải thích hướng chăm sóc phù hợp trước khi thực hiện.</p></div>
+        <div class="section-heading reveal"><p class="eyebrow">Thăm khám &amp; tư vấn</p><h2>Bắt đầu bằng việc<br><em>lắng nghe và hiểu đúng</em></h2><p class="section-intro">Không gian tư vấn được bố trí riêng tư, để khách hàng trao đổi nhu cầu và được giải thích hướng chăm sóc phù hợp trước khi thực hiện.</p></div>
         <div class="consultation-feature">
-          <button class="media-card consult-main reveal js-lightbox" type="button" data-full="assets/images/gallery/consultation-desk.webp" data-alt="Bác sĩ tư vấn trực tiếp cùng khách hàng tại Anrose Clinic"><img src="assets/images/gallery/consultation-desk.webp" alt="Bác sĩ tư vấn trực tiếp cùng khách hàng tại Anrose Clinic" loading="lazy" /></button>
-          <div class="consultation-copy reveal delay-1"><span class="mini-label">ANROSE CONSULTATION</span><h3>Mỗi hành trình có một điểm bắt đầu khác nhau</h3><p>Từ trao đổi nhu cầu, soi da, thăm khám đến lựa chọn liệu trình, Anrose ưu tiên sự rõ ràng và cá nhân hóa thay vì áp dụng một công thức chung.</p><div class="consult-points"><div><strong>01</strong><span>Trao đổi nhu cầu</span></div><div><strong>02</strong><span>Đánh giá tình trạng</span></div><div><strong>03</strong><span>Gợi ý hướng phù hợp</span></div></div></div>
+          <button class="media-card consult-main reveal js-lightbox" type="button" data-full="assets/images/gallery/consultation-desk.webp" data-alt="Bác sĩ tư vấn trực tiếp cùng khách hàng tại Anrose Clinic"><img src="assets/images/gallery/consultation-desk.webp" alt="Bác sĩ tư vấn trực tiếp cùng khách hàng tại Anrose Clinic" width="1254" height="1254" loading="lazy" /></button>
+          <div class="consultation-copy reveal delay-1"><span class="mini-label">Anrose Consultation</span><h3>Mỗi hành trình có một điểm bắt đầu khác nhau</h3><p>Từ trao đổi nhu cầu, soi da, thăm khám đến lựa chọn liệu trình, Anrose ưu tiên sự rõ ràng và cá nhân hóa thay vì áp dụng một công thức chung.</p><ol class="consult-points"><li><strong>01</strong><span>Trao đổi nhu cầu</span></li><li><strong>02</strong><span>Đánh giá tình trạng</span></li><li><strong>03</strong><span>Gợi ý hướng phù hợp</span></li></ol></div>
         </div>
         <div class="consultation-gallery">
           <button class="media-card reveal js-lightbox" type="button" data-full="assets/images/gallery/consultation-sofa-01.webp" data-alt="Tư vấn khách hàng trong không gian Anrose"><img src="assets/images/gallery/consultation-sofa-01.webp" alt="Tư vấn khách hàng trong không gian Anrose" loading="lazy" /></button>
@@ -153,26 +173,26 @@
       </div>
     </section>
 
-    <section class="treatment-gallery section-pad soft" id="treatment">
+    <section class="treatment-gallery section-pad" id="treatment">
       <div class="container">
-        <div class="section-heading center reveal"><p class="eyebrow">ĐIỀU TRỊ THỰC TẾ</p><h2>Quy trình được thể hiện<br><em>qua những khoảnh khắc thật</em></h2><p class="section-intro center-copy">Các góc cận thao tác, thiết bị và không gian điều trị giúp khách hàng hình dung rõ hơn về trải nghiệm tại phòng khám.</p></div>
+        <div class="section-heading center reveal"><p class="eyebrow">Điều trị thực tế</p><h2>Quy trình được thể hiện<br><em>qua những khoảnh khắc thật</em></h2><p class="section-intro center-copy">Các góc cận thao tác, thiết bị và không gian điều trị giúp khách hàng hình dung rõ hơn về trải nghiệm tại phòng khám.</p></div>
         <div class="treatment-mosaic">
-          <button class="media-card treatment-wide reveal js-lightbox" type="button" data-full="assets/images/gallery/treatment-laser-01.webp" data-alt="Điều trị laser tại Anrose Clinic"><img src="assets/images/gallery/treatment-laser-01.webp" alt="Điều trị laser tại Anrose Clinic" loading="lazy" /></button>
+          <button class="media-card treatment-feature reveal js-lightbox" type="button" data-full="assets/images/gallery/treatment-laser-01.webp" data-alt="Điều trị laser tại Anrose Clinic"><img src="assets/images/gallery/treatment-laser-01.webp" alt="Điều trị laser tại Anrose Clinic" loading="lazy" /></button>
           <button class="media-card reveal delay-1 js-lightbox" type="button" data-full="assets/images/gallery/treatment-laser-02.webp" data-alt="Điều trị vùng da mặt bằng laser"><img src="assets/images/gallery/treatment-laser-02.webp" alt="Điều trị vùng da mặt bằng laser" loading="lazy" /></button>
           <button class="media-card reveal delay-2 js-lightbox" type="button" data-full="assets/images/gallery/treatment-laser-03.webp" data-alt="Cận cảnh thao tác laser"><img src="assets/images/gallery/treatment-laser-03.webp" alt="Cận cảnh thao tác laser" loading="lazy" /></button>
-          <button class="media-card reveal js-lightbox" type="button" data-full="assets/images/gallery/treatment-laser-04.webp" data-alt="Điều trị laser chuyên sâu tại phòng khám"><img src="assets/images/gallery/treatment-laser-04.webp" alt="Điều trị laser chuyên sâu tại phòng khám" loading="lazy" /></button>
-          <button class="media-card reveal delay-1 js-lightbox" type="button" data-full="assets/images/gallery/treatment-laser-05.webp" data-alt="Bác sĩ thực hiện laser tại Anrose"><img src="assets/images/gallery/treatment-laser-05.webp" alt="Bác sĩ thực hiện laser tại Anrose" loading="lazy" /></button>
-          <button class="media-card reveal delay-2 js-lightbox" type="button" data-full="assets/images/gallery/treatment-laser-06.webp" data-alt="Thao tác laser trong không gian điều trị sáng sạch"><img src="assets/images/gallery/treatment-laser-06.webp" alt="Thao tác laser trong không gian điều trị sáng sạch" loading="lazy" /></button>
-          <button class="media-card reveal js-lightbox" type="button" data-full="assets/images/gallery/treatment-laser-07.webp" data-alt="Điều trị laser với thiết bị chuyên dụng"><img src="assets/images/gallery/treatment-laser-07.webp" alt="Điều trị laser với thiết bị chuyên dụng" loading="lazy" /></button>
-          <button class="media-card treatment-wide reveal delay-1 js-lightbox" type="button" data-full="assets/images/gallery/treatment-laser-08.webp" data-alt="Không gian điều trị laser tại Anrose Clinic"><img src="assets/images/gallery/treatment-laser-08.webp" alt="Không gian điều trị laser tại Anrose Clinic" loading="lazy" /></button>
+          <button class="media-card reveal delay-1 js-lightbox" type="button" data-full="assets/images/gallery/treatment-laser-04.webp" data-alt="Điều trị laser chuyên sâu tại phòng khám"><img src="assets/images/gallery/treatment-laser-04.webp" alt="Điều trị laser chuyên sâu tại phòng khám" loading="lazy" /></button>
+          <button class="media-card reveal delay-2 js-lightbox" type="button" data-full="assets/images/gallery/treatment-laser-05.webp" data-alt="Bác sĩ thực hiện laser tại Anrose"><img src="assets/images/gallery/treatment-laser-05.webp" alt="Bác sĩ thực hiện laser tại Anrose" loading="lazy" /></button>
+          <button class="media-card reveal js-lightbox" type="button" data-full="assets/images/gallery/treatment-laser-06.webp" data-alt="Thao tác laser trong không gian điều trị sáng sạch"><img src="assets/images/gallery/treatment-laser-06.webp" alt="Thao tác laser trong không gian điều trị sáng sạch" loading="lazy" /></button>
+          <button class="media-card reveal delay-1 js-lightbox" type="button" data-full="assets/images/gallery/treatment-laser-07.webp" data-alt="Điều trị laser với thiết bị chuyên dụng"><img src="assets/images/gallery/treatment-laser-07.webp" alt="Điều trị laser với thiết bị chuyên dụng" loading="lazy" /></button>
+          <button class="media-card treatment-wide reveal delay-2 js-lightbox" type="button" data-full="assets/images/gallery/treatment-laser-08.webp" data-alt="Không gian điều trị laser tại Anrose Clinic"><img src="assets/images/gallery/treatment-laser-08.webp" alt="Không gian điều trị laser tại Anrose Clinic" loading="lazy" /></button>
         </div>
       </div>
     </section>
 
-    <section class="space section-pad" id="space">
+    <section class="space section-pad soft" id="space">
       <div class="container">
-        <div class="section-heading reveal"><p class="eyebrow">KHÔNG GIAN ANROSE</p><h2>Tinh tế từ bên ngoài<br><em>đến từng chi tiết bên trong</em></h2><p class="section-intro">Không gian được sắp xếp theo hướng sáng, sạch và thư giãn, kết hợp các góc tiếp khách, tư vấn và điều trị riêng biệt.</p></div>
-        <button class="space-hero media-card reveal js-lightbox" type="button" data-full="assets/images/gallery/clinic-exterior.webp" data-alt="Mặt tiền Anrose Spa và Phòng khám chuyên khoa da liễu"><img src="assets/images/gallery/clinic-exterior.webp" alt="Mặt tiền Anrose Spa và Phòng khám chuyên khoa da liễu" loading="lazy" /><span class="space-caption"><small>ANROSE CLINIC</small><strong>Không gian nhận diện ngay từ bên ngoài</strong></span></button>
+        <div class="section-heading reveal"><p class="eyebrow">Không gian Anrose</p><h2>Tinh tế từ bên ngoài<br><em>đến từng chi tiết bên trong</em></h2><p class="section-intro">Không gian được sắp xếp theo hướng sáng, sạch và thư giãn, kết hợp các góc tiếp khách, tư vấn và điều trị riêng biệt.</p></div>
+        <button class="space-hero media-card reveal js-lightbox" type="button" data-full="assets/images/gallery/clinic-exterior.webp" data-alt="Mặt tiền Anrose Spa và Phòng khám chuyên khoa da liễu"><img src="assets/images/gallery/clinic-exterior.webp" alt="Mặt tiền Anrose Spa và Phòng khám chuyên khoa da liễu" width="1536" height="1024" loading="lazy" /><span class="space-caption"><small>Anrose Clinic</small><strong>Không gian nhận diện ngay từ bên ngoài</strong></span></button>
         <div class="space-gallery">
           <button class="media-card reveal js-lightbox" type="button" data-full="assets/images/gallery/space-lounge.webp" data-alt="Không gian tiếp khách tại Anrose"><img src="assets/images/gallery/space-lounge.webp" alt="Không gian tiếp khách tại Anrose" loading="lazy" /></button>
           <button class="media-card reveal delay-1 js-lightbox" type="button" data-full="assets/images/gallery/space-detail-flowers.webp" data-alt="Chi tiết trang trí hoa và bàn trà tại Anrose"><img src="assets/images/gallery/space-detail-flowers.webp" alt="Chi tiết trang trí hoa và bàn trà tại Anrose" loading="lazy" /></button>
@@ -181,22 +201,24 @@
       </div>
     </section>
 
-    <section class="feedback section-pad soft" id="feedback">
+    <section class="feedback section-pad" id="feedback">
       <div class="container feedback-grid">
-        <div class="feedback-media reveal"><img src="assets/images/feedback.png" alt="Feedback khách hàng Anrose Clinic" loading="lazy"></div>
-        <div class="feedback-copy reveal delay-1"><p class="eyebrow">FEEDBACK KHÁCH HÀNG</p><h2>Thay đổi được nhìn thấy<br><em>qua từng hành trình</em></h2><p>Mỗi làn da có một xuất phát điểm khác nhau. Hình ảnh trước – sau được dùng như một phần tham khảo về hành trình chăm sóc và điều trị.</p><p class="fine-print">* Hiệu quả thực tế có thể khác nhau tùy tình trạng da, cơ địa và phác đồ của từng khách hàng.</p></div>
+        <div class="feedback-media reveal"><img src="assets/images/feedback.png" alt="Feedback khách hàng Anrose Clinic" width="2000" height="2000" loading="lazy"></div>
+        <div class="feedback-copy reveal delay-1"><p class="eyebrow">Feedback khách hàng</p><h2>Thay đổi được nhìn thấy<br><em>qua từng hành trình</em></h2><p>Mỗi làn da có một xuất phát điểm khác nhau. Hình ảnh trước – sau được dùng như một phần tham khảo về hành trình chăm sóc và điều trị.</p><a class="btn btn-ghost btn-arrow" href="#contact">Nhận tư vấn cho làn da của bạn</a><p class="fine-print">* Hiệu quả thực tế có thể khác nhau tùy tình trạng da, cơ địa và phác đồ của từng khách hàng.</p></div>
       </div>
     </section>
 
     <section class="consult section-pad" id="contact">
       <div class="container consult-shell reveal">
-        <div class="consult-copy"><p class="eyebrow">ĐẶT LỊCH TƯ VẤN</p><h2>Bắt đầu từ việc<br><em>hiểu đúng làn da</em></h2><p>Điền thông tin và gửi tin nhắn đến fanpage Anrose Clinic để được tư vấn và hỗ trợ đặt lịch.</p></div>
+        <div class="consult-copy"><p class="eyebrow">Đặt lịch tư vấn</p><h2>Bắt đầu từ việc<br><em>hiểu đúng làn da</em></h2><p>Điền thông tin và gửi tin nhắn đến fanpage Anrose Clinic để được tư vấn và hỗ trợ đặt lịch.</p>
+          <ul class="consult-assurance"><li>Chuyên viên hỗ trợ tư vấn và đặt lịch</li><li>Thông tin của bạn không được lưu trên website</li><li>Phản hồi qua Messenger của Anrose Clinic</li></ul>
+        </div>
         <form class="contact-form" method="post">
           <label for="contact-name">Họ và tên<input id="contact-name" name="name" type="text" placeholder="Tên của bạn" autocomplete="name" maxlength="100" required></label>
           <label for="contact-phone">Số điện thoại<input id="contact-phone" name="phone" type="tel" placeholder="09xx xxx xxx" autocomplete="tel" inputmode="tel" maxlength="24" required></label>
           <label for="contact-service">Dịch vụ quan tâm<select id="contact-service" name="service"><option>Chăm sóc da</option><option>HIFU Doublo New</option><option>Scahil</option><option>Pico Majesty</option><option>Laser</option><option>Tư vấn khác</option></select></label>
           <p class="contact-hint" id="contact-hint">Thông tin sẽ được tạo thành tin nhắn. Khi Messenger mở, bạn dán nội dung và bấm Gửi đến Anrose Clinic.</p>
-          <button class="btn btn-primary" type="submit" aria-describedby="contact-hint" hidden>Tạo tin nhắn & mở Messenger</button>
+          <button class="btn btn-primary btn-arrow" type="submit" aria-describedby="contact-hint" hidden>Tạo tin nhắn &amp; mở Messenger</button>
           <noscript><p>Vui lòng bật JavaScript hoặc <a href="https://m.me/anrose.phongkhamdalieu" target="_blank" rel="noopener noreferrer">nhắn tin trực tiếp cho Anrose Clinic</a>.</p></noscript>
           <div class="message-draft" hidden>
             <label for="contact-message">Tin nhắn đã tạo<textarea id="contact-message" rows="6" readonly></textarea></label>
@@ -209,11 +231,28 @@
   </main>
 
   <footer class="site-footer">
-    <div class="container footer-grid"><div><span class="brand-main">Anrose Clinic</span><p>Phòng khám chuyên khoa da liễu</p></div><div><strong>Điều hướng</strong><a href="#services">Dịch vụ</a><a href="#consultation">Thăm khám</a><a href="#treatment">Điều trị</a><a href="#space">Không gian</a><a href="#feedback">Feedback</a></div><div><strong>Liên hệ</strong><p>Thêm địa chỉ / hotline / Facebook của Anrose tại đây.</p></div></div>
-    <div class="container footer-bottom">© 2026 Anrose Clinic. Source reconstructed for editing.</div>
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <img class="footer-logo" src="assets/icons/anrose-logo-wordmark.png" alt="Anrose Clinic – Phòng khám chuyên khoa da liễu" width="720" height="242" loading="lazy" />
+        <p>Không gian da liễu – thẩm mỹ tối giản, tinh tế và cá nhân hóa cho từng làn da.</p>
+      </div>
+      <div><strong>Điều hướng</strong><a href="#campaign">Ưu đãi</a><a href="#services">Dịch vụ</a><a href="#consultation">Thăm khám</a><a href="#treatment">Điều trị</a><a href="#space">Không gian</a><a href="#feedback">Feedback</a></div>
+      <div><strong>Liên hệ</strong><a href="https://m.me/anrose.phongkhamdalieu" target="_blank" rel="noopener noreferrer">Nhắn tin Messenger ↗</a><a href="https://www.facebook.com/anrose.phongkhamdalieu" target="_blank" rel="noopener noreferrer">Fanpage Anrose Clinic ↗</a><a href="#contact">Đặt lịch tư vấn</a></div>
+    </div>
+    <div class="container footer-bottom"><span>© 2026 Anrose Clinic. Phòng khám chuyên khoa da liễu.</span><a href="#top">Về đầu trang ↑</a></div>
   </footer>
 
-  <div class="lightbox" aria-hidden="true"><button class="lightbox-close" aria-label="Đóng ảnh">×</button><div class="lightbox-inner"><img class="lightbox-image" src="" alt="" /><p class="lightbox-caption"></p></div></div>
-  <script src="script.js?v=20261028-offers5"></script>
+  <a class="floating-cta" href="https://m.me/anrose.phongkhamdalieu" target="_blank" rel="noopener noreferrer" aria-label="Nhắn tin tư vấn qua Messenger">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3C6.9 3 3 6.7 3 11.4c0 2.5 1.1 4.7 3 6.2V21l3.1-1.7c.9.2 1.9.4 2.9.4 5.1 0 9-3.7 9-8.4S17.1 3 12 3zm.9 11.2-2.3-2.4-4.4 2.4 4.9-5.2 2.3 2.4 4.4-2.4-4.9 5.2z"/></svg>
+    <span>Tư vấn ngay</span>
+  </a>
+
+  <div class="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Xem ảnh">
+    <button class="lightbox-close" type="button" aria-label="Đóng ảnh">×</button>
+    <button class="lightbox-nav lightbox-prev" type="button" aria-label="Ảnh trước"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <div class="lightbox-inner"><img class="lightbox-image" src="" alt="" /><p class="lightbox-caption"></p></div>
+    <button class="lightbox-nav lightbox-next" type="button" aria-label="Ảnh tiếp theo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+  </div>
+  <script src="script.js?v=20261028-redesign1"></script>
 </body>
 </html>

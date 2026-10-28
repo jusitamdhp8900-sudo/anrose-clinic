@@ -22,5 +22,13 @@
 - Mobile: gallery điều trị chuyển thành horizontal swipe để tránh trang quá dài/rối.
 - Ảnh gallery có lightbox; giữ class `.js-lightbox` và data attributes nếu thay ảnh.
 
+## Giao diện 2026-10 (redesign)
+- Logo header/footer: `assets/icons/anrose-logo-wordmark.png` (nền trong suốt, cắt từ `anrose-logo-original.png`).
+- Hiệu ứng: thêm class `reveal` (+ `delay-1/2/3`) để phần tử hiện dần khi cuộn; easing chung `--ease` trong `styles.css`.
+- Lightbox tự gom ảnh `.js-lightbox` trong cùng section thành gallery (mũi tên, phím ←/→, vuốt).
+- Ưu đãi: thêm poster mới bằng một `.poster-card` với `data-offer-title/price/description`; dots, đếm số và nút "Đặt lịch ưu đãi này" tự cập nhật.
+- Link có `data-service="..."` sẽ tự chọn dịch vụ trong form tư vấn.
+- Luôn tôn trọng `prefers-reduced-motion` khi thêm animation mới.
+
 ## Prompt đề xuất cho AI khác
 "Hãy chỉnh website này nhưng giữ nguyên Anrose Design DNA, palette ivory/cream + #A76B03/#9B621C, bố cục premium tối giản. Không tự ý xóa các section hoặc các ảnh trong assets/images/gallery. Khi thêm nội dung mới, ưu tiên khoảng thở, typography thanh lịch, responsive tốt và tốc độ tải nhanh."
