@@ -303,3 +303,12 @@ main > .campaign:first-child { margin-top: 28px; padding-block: 48px 64px; }
 
 .campaign-heading h2 > span { white-space: nowrap; }
 @media (min-width:621px) { .campaign-heading h2 > em { display: block; } }
+
+/* Messenger handoff: a visible draft and an honest, recoverable copy flow. */
+.contact-form [hidden] { display: none; }
+.contact-hint,.message-status { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
+.message-draft { display: grid; gap: 14px; padding-top: 20px; border-top: 1px solid var(--line); }
+.contact-form textarea { width: 100%; resize: vertical; min-height: 160px; padding: 14px; border: 1px solid var(--line); border-radius: 12px; background: rgba(255,255,255,.8); color: var(--ink); font: 400 14px/1.7 var(--sans); }
+.contact-form textarea:focus-visible { outline: 2px solid var(--brown); outline-offset: 3px; }
+.message-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
+.message-actions a { color: var(--brown); font-size: 13px; text-decoration: underline; text-underline-offset: 4px; }

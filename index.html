@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20261028-offers3" />
+  <link rel="stylesheet" href="styles.css?v=20261028-messenger1" />
 </head>
 <body>
   <header class="site-header" id="top">
@@ -177,8 +177,20 @@
 
     <section class="consult section-pad" id="contact">
       <div class="container consult-shell reveal">
-        <div class="consult-copy"><p class="eyebrow">ĐẶT LỊCH TƯ VẤN</p><h2>Bắt đầu từ việc<br><em>hiểu đúng làn da</em></h2><p>Để lại thông tin, đội ngũ Anrose sẽ liên hệ tư vấn và hỗ trợ đặt lịch phù hợp.</p></div>
-        <form class="contact-form" onsubmit="return false;"><label>Họ và tên<input type="text" placeholder="Tên của bạn"></label><label>Số điện thoại<input type="tel" placeholder="09xx xxx xxx"></label><label>Dịch vụ quan tâm<select><option>Chăm sóc da</option><option>HIFU Doublo New</option><option>Scahil</option><option>Pico Majesty</option><option>Laser</option><option>Tư vấn khác</option></select></label><button class="btn btn-primary" type="submit">Gửi yêu cầu</button></form>
+        <div class="consult-copy"><p class="eyebrow">ĐẶT LỊCH TƯ VẤN</p><h2>Bắt đầu từ việc<br><em>hiểu đúng làn da</em></h2><p>Điền thông tin và gửi tin nhắn đến fanpage Anrose Clinic để được tư vấn và hỗ trợ đặt lịch.</p></div>
+        <form class="contact-form" method="post">
+          <label for="contact-name">Họ và tên<input id="contact-name" name="name" type="text" placeholder="Tên của bạn" autocomplete="name" maxlength="100" required></label>
+          <label for="contact-phone">Số điện thoại<input id="contact-phone" name="phone" type="tel" placeholder="09xx xxx xxx" autocomplete="tel" inputmode="tel" maxlength="24" required></label>
+          <label for="contact-service">Dịch vụ quan tâm<select id="contact-service" name="service"><option>Chăm sóc da</option><option>HIFU Doublo New</option><option>Scahil</option><option>Pico Majesty</option><option>Laser</option><option>Tư vấn khác</option></select></label>
+          <p class="contact-hint" id="contact-hint">Thông tin sẽ được tạo thành tin nhắn. Khi Messenger mở, bạn dán nội dung và bấm Gửi đến Anrose Clinic.</p>
+          <button class="btn btn-primary" type="submit" aria-describedby="contact-hint" hidden>Tạo tin nhắn & mở Messenger</button>
+          <noscript><p>Vui lòng bật JavaScript hoặc <a href="https://m.me/anrose.phongkhamdalieu" target="_blank" rel="noopener noreferrer">nhắn tin trực tiếp cho Anrose Clinic</a>.</p></noscript>
+          <div class="message-draft" hidden>
+            <label for="contact-message">Tin nhắn đã tạo<textarea id="contact-message" rows="6" readonly></textarea></label>
+            <p class="message-status" role="status" aria-live="polite"></p>
+            <div class="message-actions"><button class="btn btn-ghost copy-message" type="button">Sao chép tin nhắn</button><a href="https://m.me/anrose.phongkhamdalieu" target="_blank" rel="noopener noreferrer">Mở lại Messenger ↗</a></div>
+          </div>
+        </form>
       </div>
     </section>
   </main>
@@ -189,6 +201,6 @@
   </footer>
 
   <div class="lightbox" aria-hidden="true"><button class="lightbox-close" aria-label="Đóng ảnh">×</button><div class="lightbox-inner"><img class="lightbox-image" src="" alt="" /><p class="lightbox-caption"></p></div></div>
-  <script src="script.js?v=20261028-offers3"></script>
+  <script src="script.js?v=20261028-messenger1"></script>
 </body>
 </html>

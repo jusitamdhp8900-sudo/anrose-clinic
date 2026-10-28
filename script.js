@@ -243,3 +243,55 @@ if (campaign) {
   controls.hidden = false;
   paint(0);
 }
+
+// Prepare a customer-owned message; no form data is put into URLs or stored.
+const contactForm = document.querySelector('.contact-form');
+if (contactForm) {
+  const nameInput = contactForm.querySelector('[name="name"]');
+  const phoneInput = contactForm.querySelector('[name="phone"]');
+  const serviceInput = contactForm.querySelector('[name="service"]');
+  const draft = contactForm.querySelector('.message-draft');
+  const message = contactForm.querySelector('#contact-message');
+  const status = contactForm.querySelector('.message-status');
+  const messengerURL = 'https://m.me/anrose.phongkhamdalieu';
+  const submit = contactForm.querySelector('[type="submit"]');
+  submit.hidden = false;
+  function validateContact() {
+    nameInput.setCustomValidity(nameInput.value.trim().length < 2 ? 'Vui lòng nhập họ và tên của bạn.' : '');
+    const phone = phoneInput.value.trim();
+    const digits = phone.replace(/\D/g, '');
+    phoneInput.setCustomValidity(/^[+\d\s().-]+$/.test(phone) && digits.length >= 9 && digits.length <= 15 ? '' : 'Vui lòng nhập số điện thoại hợp lệ.');
+    return contactForm.reportValidity();
+  }
+  [nameInput, phoneInput].forEach(input => input.addEventListener('input', () => input.setCustomValidity('')));
+  async function copyMessage() {
+    try {
+      if (!navigator.clipboard || !window.isSecureContext) throw new Error('Clipboard unavailable');
+      await navigator.clipboard.writeText(message.value);
+      status.textContent = 'Đã sao chép nội dung. Bạn hãy dán vào Messenger và bấm Gửi. Tin nhắn chưa được gửi từ website.';
+    } catch {
+      status.textContent = 'Chưa sao chép được. Hãy chọn và sao chép nội dung bên trên, sau đó mở Messenger, dán và bấm Gửi.';
+    }
+  }
+  contactForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    if (!validateContact()) return;
+    message.value = [
+      'Xin chào Anrose Clinic, tôi muốn được tư vấn và đặt lịch.',
+      `Họ và tên: ${nameInput.value.trim()}`,
+      `Số điện thoại: ${phoneInput.value.trim()}`,
+      `Dịch vụ quan tâm: ${serviceInput.value}`,
+      'Nhờ Anrose liên hệ tư vấn giúp tôi. Cảm ơn Anrose!'
+    ].join('\n');
+    draft.hidden = false;
+    status.textContent = 'Đang chuẩn bị nội dung. Nếu Messenger chưa mở, bạn có thể bấm “Mở lại Messenger” bên dưới.';
+    // Start copying within the click gesture; open synchronously to avoid popup blocking.
+    void copyMessage();
+    window.open(messengerURL, '_blank', 'noopener,noreferrer');
+  });
+  contactForm.querySelector('.copy-message').addEventListener('click', () => {
+    message.focus();
+    message.select();
+    void copyMessage();
+  });
+}
