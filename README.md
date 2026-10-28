@@ -45,3 +45,5 @@ CSS đang dùng fallback Google Fonts cho môi trường chạy thử:
 - Body: Barlow
 
 Nếu có license/font Beautique Display chính thức, đặt font local vào `assets/fonts/` rồi khai báo `@font-face` trong `styles.css`.
+
+_Cập nhật lần cuối: 28/10/2026_
