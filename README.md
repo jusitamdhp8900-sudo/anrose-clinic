@@ -5,7 +5,7 @@ Bản source này đã được cập nhật để đưa toàn bộ nhóm ảnh 
 ## Cấu trúc nội dung
 
 1. Hero / giới thiệu thương hiệu
-2. Dịch vụ & ưu đãi nổi bật — 2 visual thiết kế
+2. Dịch vụ & ưu đãi nổi bật — 3 visual: ưu đãi 20/10, trẻ hóa và laser
 3. Dịch vụ chính
 4. Công nghệ HIFU Doublo New
 5. Thăm khám & tư vấn — 3 ảnh

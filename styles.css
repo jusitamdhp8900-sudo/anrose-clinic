@@ -76,6 +76,7 @@ em { font-style: normal; font-weight: inherit; color: var(--brown); }
 .hero-glass-pill strong { font-size: 12px; font-weight: 400; }
 /* Photography and consistent content grids */
 .campaign-grid,.consultation-gallery { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 24px; }
+.campaign-grid { grid-template-columns: repeat(3,minmax(0,1fr)); align-items: start; }
 .media-card { display: block; position: relative; width: 100%; padding: 0; border: 0; background: transparent; text-align: left; cursor: zoom-in; overflow: hidden; border-radius: 18px; }
 .media-card img { transition: transform .5s; }
 @media (hover:hover) { .media-card:hover img { transform: scale(1.02); } }
