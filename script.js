@@ -54,3 +54,47 @@ lightbox?.addEventListener('click', (event) => {
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') closeLightbox();
 });
+
+// Manual carousel, with keyboard controls and horizontal touch gestures.
+const technologyCarousel = document.querySelector('.technology-carousel');
+if (technologyCarousel) {
+  const slides = [...technologyCarousel.querySelectorAll('.technology-slide')];
+  const viewport = technologyCarousel.querySelector('.technology-viewport');
+  const controls = technologyCarousel.querySelector('.technology-controls');
+  let active = 0;
+  function showTechnology(index) {
+    active = (index + slides.length) % slides.length;
+    slides.forEach((slide, i) => { slide.hidden = i !== active; });
+    technologyCarousel.querySelector('.technology-count').textContent =
+      `${String(active + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
+    technologyCarousel.querySelector('.technology-name').textContent = slides[active].dataset.name;
+  }
+  technologyCarousel.classList.add('is-ready');
+  controls.hidden = false;
+  showTechnology(0);
+  technologyCarousel.querySelector('.technology-prev').addEventListener('click', () => showTechnology(active - 1));
+  technologyCarousel.querySelector('.technology-next').addEventListener('click', () => showTechnology(active + 1));
+  controls.addEventListener('keydown', (event) => {
+    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+    event.preventDefault();
+    showTechnology(active + (event.key === 'ArrowLeft' ? -1 : 1));
+  });
+  let touchStart = null;
+  viewport.addEventListener('touchstart', (event) => {
+    touchStart = event.touches.length === 1 ? { x: event.touches[0].clientX, y: event.touches[0].clientY } : null;
+  }, { passive: true });
+  viewport.addEventListener('touchend', (event) => {
+    if (!touchStart) return;
+    const dx = event.changedTouches[0].clientX - touchStart.x;
+    const dy = event.changedTouches[0].clientY - touchStart.y;
+    touchStart = null;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) showTechnology(active + (dx < 0 ? 1 : -1));
+  }, { passive: true });
+  viewport.addEventListener('touchcancel', () => { touchStart = null; }, { passive: true });
+  technologyCarousel.querySelectorAll('[data-service]').forEach((link) => {
+    link.addEventListener('click', () => {
+      const select = document.querySelector('.contact-form select');
+      if (select) select.value = link.dataset.service;
+    });
+  });
+}
