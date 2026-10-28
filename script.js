@@ -55,29 +55,85 @@ document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') closeLightbox();
 });
 
-// Manual carousel, with keyboard controls and horizontal touch gestures.
+// A continuous horizontal track, including inert edge copies for seamless looping.
 const technologyCarousel = document.querySelector('.technology-carousel');
 if (technologyCarousel) {
   const slides = [...technologyCarousel.querySelectorAll('.technology-slide')];
   const viewport = technologyCarousel.querySelector('.technology-viewport');
   const controls = technologyCarousel.querySelector('.technology-controls');
+  const track = document.createElement('div');
+  track.className = 'technology-track';
+  slides.forEach(slide => track.append(slide));
+  function edgeCopy(slide) {
+    const copy = slide.cloneNode(true);
+    copy.classList.add('technology-clone');
+    copy.inert = true;
+    copy.setAttribute('aria-hidden', 'true');
+    copy.querySelectorAll('img').forEach(img => { img.loading = 'eager'; });
+    return copy;
+  }
+  track.prepend(edgeCopy(slides[slides.length - 1]));
+  track.append(edgeCopy(slides[0]));
+  viewport.append(track);
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   let active = 0;
-  function showTechnology(index) {
-    active = (index + slides.length) % slides.length;
-    slides.forEach((slide, i) => { slide.hidden = i !== active; });
+  let position = 1;
+  let moving = false;
+  let completionTimer;
+  const pending = [];
+  function updateStatus() {
+    slides.forEach((slide, i) => {
+      slide.inert = i !== active;
+      slide.setAttribute('aria-hidden', String(i !== active));
+    });
     technologyCarousel.querySelector('.technology-count').textContent =
       `${String(active + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
     technologyCarousel.querySelector('.technology-name').textContent = slides[active].dataset.name;
   }
+  function placeTrack(animate) {
+    track.classList.toggle('is-moving', animate);
+    track.style.transform = `translate3d(${-position * 100}%, 0, 0)`;
+  }
+  function finishMove() {
+    if (!moving) return;
+    clearTimeout(completionTimer);
+    moving = false;
+    // The clone and the real slide are identical, so this reset is invisible.
+    position = active + 1;
+    placeTrack(false);
+    if (pending.length) {
+      const direction = pending.shift();
+      requestAnimationFrame(() => moveTechnology(direction));
+    }
+  }
+  function moveTechnology(direction) {
+    if (moving) {
+      if (pending.length < 4) pending.push(direction);
+      return;
+    }
+    // Commit the non-animated loop position before beginning the next movement.
+    void track.offsetWidth;
+    position += direction;
+    active = (active + direction + slides.length) % slides.length;
+    updateStatus();
+    moving = true;
+    placeTrack(!reducedMotion.matches);
+    if (reducedMotion.matches) finishMove();
+    else completionTimer = setTimeout(finishMove, 650);
+  }
+  track.addEventListener('transitionend', (event) => {
+    if (event.target === track && event.propertyName === 'transform') finishMove();
+  });
   technologyCarousel.classList.add('is-ready');
   controls.hidden = false;
-  showTechnology(0);
-  technologyCarousel.querySelector('.technology-prev').addEventListener('click', () => showTechnology(active - 1));
-  technologyCarousel.querySelector('.technology-next').addEventListener('click', () => showTechnology(active + 1));
+  updateStatus();
+  placeTrack(false);
+  technologyCarousel.querySelector('.technology-prev').addEventListener('click', () => moveTechnology(-1));
+  technologyCarousel.querySelector('.technology-next').addEventListener('click', () => moveTechnology(1));
   controls.addEventListener('keydown', (event) => {
     if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
     event.preventDefault();
-    showTechnology(active + (event.key === 'ArrowLeft' ? -1 : 1));
+    moveTechnology(event.key === 'ArrowLeft' ? -1 : 1);
   });
   let touchStart = null;
   viewport.addEventListener('touchstart', (event) => {
@@ -88,13 +144,13 @@ if (technologyCarousel) {
     const dx = event.changedTouches[0].clientX - touchStart.x;
     const dy = event.changedTouches[0].clientY - touchStart.y;
     touchStart = null;
-    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) showTechnology(active + (dx < 0 ? 1 : -1));
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) moveTechnology(dx < 0 ? 1 : -1);
   }, { passive: true });
   viewport.addEventListener('touchcancel', () => { touchStart = null; }, { passive: true });
-  technologyCarousel.querySelectorAll('[data-service]').forEach((link) => {
+  slides.forEach(slide => slide.querySelectorAll('[data-service]').forEach((link) => {
     link.addEventListener('click', () => {
       const select = document.querySelector('.contact-form select');
       if (select) select.value = link.dataset.service;
     });
-  });
+  }));
 }

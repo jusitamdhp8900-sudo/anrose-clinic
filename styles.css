@@ -90,10 +90,21 @@ em { font-style: normal; font-weight: inherit; color: var(--brown); }
 .service-body h3 { font-size: 26px; min-height: 68px; text-wrap: pretty; }
 .service-body p { color: var(--muted); margin-bottom: 0; font-size: 14px; line-height: 1.8; }
 .tech-grid,.feedback-grid,.consultation-feature { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 72px; align-items: center; }
-/* Manual technology carousel: consistent image stage, no automatic motion. */
+/* Horizontal slide track: equal height panels and a seamless circular transition. */
 .technology-slide[hidden], .technology-controls[hidden] { display: none; }
 .technology-slide + .technology-slide { margin-top: 40px; }
-.technology-carousel.is-ready .technology-slide { margin-top: 0; }
+.technology-carousel.is-ready .technology-slide { margin-top: 0; flex: 0 0 100%; min-width: 0; align-self: stretch; }
+.technology-carousel.is-ready .technology-viewport { overflow: hidden; border-radius: 24px; }
+.technology-track { display: flex; align-items: stretch; transform: translate3d(-100%,0,0); }
+.technology-track.is-moving { transition: transform 520ms cubic-bezier(.22,.68,.2,1); will-change: transform; }
+.technology-slide .tech-copy { padding: 28px 24px; }
+.technology-slide .check-list { margin-block: 22px 28px; }
+.technology-slide .tech-media { box-shadow: none; }
+.technology-slide .technology-device:has(img[src$="scahil.jpg"]) { background: #ececec; }
+@media (max-width:620px) {
+  .technology-slide .tech-copy { padding: 24px 16px; }
+  .technology-carousel.is-ready .technology-slide { grid-template-rows: 1fr auto; }
+}
 .technology-slide .tech-media { aspect-ratio: 1 / 1; }
 .technology-slide .tech-media img { height: 100%; object-fit: cover; }
 .technology-slide .technology-device { background: #fff; }
