@@ -1,0 +1,16 @@
+{
+  "name": "Anrose Clinic – Phòng khám chuyên khoa da liễu",
+  "short_name": "Anrose Clinic",
+  "description": "Phòng khám chuyên khoa da liễu – chăm sóc da, laser và trẻ hóa theo phác đồ cá nhân hóa.",
+  "lang": "vi",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fffdf9",
+  "theme_color": "#fffdf9",
+  "icons": [
+    { "src": "assets/icons/favicon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/icons/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}
+

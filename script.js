@@ -37,6 +37,11 @@ const header = document.querySelector('.site-header');
 const progressBar = document.querySelector('.scroll-progress span');
 const floatingCta = document.querySelector('.floating-cta');
 const contactSection = document.querySelector('#contact');
+const backToTop = document.querySelector('.back-to-top');
+backToTop?.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: reducedMotion.matches ? 'auto' : 'smooth' });
+  document.querySelector('.brand')?.focus({ preventScroll: true });
+});
 let scrollTicking = false;
 function updateScrollUI() {
   scrollTicking = false;
@@ -47,6 +52,7 @@ function updateScrollUI() {
   // The floating button steps aside once the consultation form (or anything after it) is on screen.
   const contactReached = contactSection ? contactSection.getBoundingClientRect().top < window.innerHeight * 0.8 : false;
   floatingCta?.classList.toggle('is-visible', y > window.innerHeight * 0.9 && !contactReached);
+  backToTop?.classList.toggle('is-visible', y > window.innerHeight * 1.5);
   checkPendingReveals();
 }
 window.addEventListener('scroll', () => {
@@ -86,6 +92,49 @@ if ('IntersectionObserver' in window && navLinks.length) {
     });
   }, { rootMargin: '-45% 0px -50% 0px' });
   sections.forEach((section) => navObserver.observe(section));
+}
+
+// FAQ accordion: smooth height animation on top of native <details>, one item open at a time.
+const faqItems = [...document.querySelectorAll('.faq-item')];
+faqItems.forEach((item) => {
+  const summary = item.querySelector('summary');
+  const answer = item.querySelector('.faq-answer');
+  summary.addEventListener('click', (event) => {
+    if (reducedMotion.matches || !answer.animate) {
+      if (!item.open) faqItems.forEach((other) => { if (other !== item) other.open = false; });
+      return;
+    }
+    event.preventDefault();
+    if (item.open) {
+      const anim = answer.animate([{ height: `${answer.offsetHeight}px`, opacity: 1 }, { height: '0px', opacity: 0 }], { duration: 380, easing: 'cubic-bezier(.22,1,.36,1)' });
+      anim.onfinish = () => { item.open = false; };
+    } else {
+      faqItems.forEach((other) => {
+        if (other === item || !other.open) return;
+        const otherAnswer = other.querySelector('.faq-answer');
+        const close = otherAnswer.animate([{ height: `${otherAnswer.offsetHeight}px`, opacity: 1 }, { height: '0px', opacity: 0 }], { duration: 380, easing: 'cubic-bezier(.22,1,.36,1)' });
+        close.onfinish = () => { other.open = false; };
+      });
+      item.open = true;
+      answer.animate([{ height: '0px', opacity: 0 }, { height: `${answer.offsetHeight}px`, opacity: 1 }], { duration: 480, easing: 'cubic-bezier(.22,1,.36,1)' });
+    }
+  });
+});
+// Structured data for search engines, built from the visible FAQ so the two never drift apart.
+if (faqItems.length) {
+  const faqData = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqItems.map((item) => ({
+      '@type': 'Question',
+      name: item.querySelector('summary').textContent.trim(),
+      acceptedAnswer: { '@type': 'Answer', text: item.querySelector('.faq-answer').textContent.trim() }
+    }))
+  };
+  const faqScript = document.createElement('script');
+  faqScript.type = 'application/ld+json';
+  faqScript.textContent = JSON.stringify(faqData);
+  document.head.append(faqScript);
 }
 
 // Pre-select a service in the consultation form; offers are added as their own option.
@@ -458,6 +507,18 @@ if (contactForm) {
   const nameInput = contactForm.querySelector('[name="name"]');
   const phoneInput = contactForm.querySelector('[name="phone"]');
   const serviceInput = contactForm.querySelector('[name="service"]');
+  const dateInput = contactForm.querySelector('[name="date"]');
+  const timeInput = contactForm.querySelector('[name="time"]');
+  const noteInput = contactForm.querySelector('[name="note"]');
+  // Appointments can only be requested from today onwards (local date, not UTC).
+  if (dateInput) {
+    const now = new Date();
+    dateInput.min = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+  }
+  function formatDate(value) {
+    const [y, m, d] = value.split('-');
+    return y && m && d ? `${d}/${m}/${y}` : value;
+  }
   const draft = contactForm.querySelector('.message-draft');
   const message = contactForm.querySelector('#contact-message');
   const status = contactForm.querySelector('.message-status');
@@ -484,13 +545,18 @@ if (contactForm) {
   contactForm.addEventListener('submit', (event) => {
     event.preventDefault();
     if (!validateContact()) return;
-    message.value = [
+    const lines = [
       'Xin chào Anrose Clinic, tôi muốn được tư vấn và đặt lịch.',
       `Họ và tên: ${nameInput.value.trim()}`,
       `Số điện thoại: ${phoneInput.value.trim()}`,
-      `Dịch vụ quan tâm: ${serviceInput.value}`,
-      'Nhờ Anrose liên hệ tư vấn giúp tôi. Cảm ơn Anrose!'
-    ].join('\n');
+      `Dịch vụ quan tâm: ${serviceInput.value}`
+    ];
+    if (dateInput?.value || timeInput?.value) {
+      lines.push(`Thời gian mong muốn: ${[dateInput?.value ? formatDate(dateInput.value) : '', timeInput?.value || ''].filter(Boolean).join(' – ')}`);
+    }
+    if (noteInput?.value.trim()) lines.push(`Ghi chú: ${noteInput.value.trim()}`);
+    lines.push('Nhờ Anrose liên hệ tư vấn giúp tôi. Cảm ơn Anrose!');
+    message.value = lines.join('\n');
     draft.hidden = false;
     status.textContent = 'Đang chuẩn bị nội dung. Nếu Messenger chưa mở, bạn có thể bấm “Mở lại Messenger” bên dưới.';
     // Start copying within the click gesture; open synchronously to avoid popup blocking.
