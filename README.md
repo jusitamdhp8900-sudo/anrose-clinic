@@ -4,8 +4,8 @@ Bản source này đã được cập nhật để đưa toàn bộ nhóm ảnh 
 
 ## Cấu trúc nội dung
 
-1. Hero / giới thiệu thương hiệu
-2. Dịch vụ & ưu đãi nổi bật — 3 visual: ưu đãi 20/10, trẻ hóa và laser
+1. Chương trình ưu đãi — 6 poster mới ngày 28/10/2026, tiếp theo là 2 poster trẻ hóa và laser; bỏ poster 20/10 cũ khỏi trang
+2. Hero / giới thiệu thương hiệu
 3. Dịch vụ chính
 4. Công nghệ HIFU Doublo New
 5. Thăm khám & tư vấn — 3 ảnh

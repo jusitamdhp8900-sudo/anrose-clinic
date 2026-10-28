@@ -266,3 +266,13 @@ em { font-style: normal; font-weight: inherit; color: var(--brown); }
   *,*::before,*::after { transition: none !important; animation: none !important; }
   .reveal { opacity: 1; transform: none; }
 }
+
+/* Opening promotion gallery: full posters without cropping their text. */
+main > .campaign:first-child { margin-top: 28px; padding-top: 48px; }
+.campaign-grid .poster-card img { aspect-ratio: 1 / 1; object-fit: contain; height: auto; }
+@media (min-width:621px) and (max-width:900px) {
+  .campaign-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+}
+@media (max-width:620px) {
+  main > .campaign:first-child { margin-top: 20px; padding-top: 32px; }
+}
