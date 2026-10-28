@@ -267,12 +267,39 @@ em { font-style: normal; font-weight: inherit; color: var(--brown); }
   .reveal { opacity: 1; transform: none; }
 }
 
-/* Opening promotion gallery: full posters without cropping their text. */
-main > .campaign:first-child { margin-top: 28px; padding-top: 48px; }
-.campaign-grid .poster-card img { aspect-ratio: 1 / 1; object-fit: contain; height: auto; }
-@media (min-width:621px) and (max-width:900px) {
-  .campaign-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+/* Opening offers: one full poster at a time, with native touch scrolling. */
+main > .campaign:first-child { margin-top: 28px; padding-block: 48px 64px; }
+.campaign > .container { display: grid; grid-template-columns: .85fr 1.15fr; gap: 72px; align-items: center; }
+.campaign-heading { display: block; margin: 0; }
+.campaign-heading h2 { font-size: clamp(36px,4vw,56px); max-width: 420px; }
+.campaign-heading .section-intro { margin-top: 24px; max-width: 340px; }
+.campaign-carousel { min-width: 0; width: 100%; max-width: 580px; justify-self: end; }
+.campaign-grid { display: flex; gap: 0; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; border-radius: 24px; background: var(--glass); border: 1px solid #fff; box-shadow: var(--shadow); overscroll-behavior-x: contain; }
+.campaign-grid::-webkit-scrollbar { display: none; }
+.campaign-grid .poster-card { flex: 0 0 100%; width: 100%; min-width: 0; padding: 6px; border: 0; border-radius: 0; box-shadow: none; background: transparent; scroll-snap-align: start; scroll-snap-stop: always; }
+.campaign-grid .poster-card img { width: 100%; height: auto; aspect-ratio: 1; object-fit: contain; border-radius: 18px; transform: none; user-select: none; -webkit-user-drag: none; }
+.campaign-grid.is-dragging { scroll-snap-type: none; cursor: grabbing; }
+.campaign-grid.is-dragging .poster-card { cursor: grabbing; }
+.campaign-controls { display: flex; gap: 12px; align-items: center; margin-top: 24px; }
+.campaign-controls[hidden] { display: none; }
+.campaign-count { min-width: 60px; font-size: 11px; letter-spacing: .12em; color: var(--brown); font-variant-numeric: tabular-nums; }
+.campaign-progress { height: 2px; flex: 1; background: var(--line); margin-right: 16px; overflow: hidden; }
+.campaign-progress span { display: block; width: 12.5%; height: 100%; background: var(--brown); transition: width .45s ease; }
+.campaign-controls button { flex-shrink: 0; width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--line); color: var(--brown); background: var(--glass); font-size: 24px; cursor: pointer; transition: background .2s, opacity .2s; }
+.campaign-controls button:hover:not(:disabled) { background: var(--cream); }
+.campaign-controls button:disabled { opacity: .3; cursor: default; }
+@media (max-width:900px) {
+  .campaign > .container { gap: 32px; grid-template-columns: .85fr 1.15fr; }
+  .campaign-heading h2 { font-size: 38px; }
 }
 @media (max-width:620px) {
-  main > .campaign:first-child { margin-top: 20px; padding-top: 32px; }
+  main > .campaign:first-child { margin-top: 20px; padding-block: 32px 40px; }
+  .campaign > .container { grid-template-columns: 1fr; gap: 24px; }
+  .campaign-heading h2 { font-size: 34px; }
+  .campaign-heading .section-intro { margin-top: 14px; }
+  .campaign-carousel { justify-self: center; }
+  .campaign-controls { margin-top: 16px; }
 }
+
+.campaign-heading h2 > span { white-space: nowrap; }
+@media (min-width:621px) { .campaign-heading h2 > em { display: block; } }

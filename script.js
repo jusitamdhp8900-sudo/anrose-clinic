@@ -154,3 +154,92 @@ if (technologyCarousel) {
     });
   }));
 }
+
+// Promotion carousel: each arrow advances one poster; touch/trackpad scroll natively.
+const campaign = document.querySelector('.campaign-carousel');
+if (campaign) {
+  const rail = campaign.querySelector('.campaign-grid');
+  const cards = [...rail.querySelectorAll('.poster-card')];
+  const controls = campaign.querySelector('.campaign-controls');
+  const previous = campaign.querySelector('.campaign-prev');
+  const next = campaign.querySelector('.campaign-next');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let active = 0;
+  let target = 0;
+  let settleTimer;
+  function paint(index) {
+    active = index;
+    campaign.querySelector('.campaign-count').textContent =
+      `${String(index + 1).padStart(2, '0')} / ${String(cards.length).padStart(2, '0')}`;
+    campaign.querySelector('.campaign-progress span').style.width = `${(index + 1) / cards.length * 100}%`;
+    previous.disabled = index === 0;
+    next.disabled = index === cards.length - 1;
+    cards.forEach((card, i) => { card.tabIndex = i === index ? 0 : -1; });
+  }
+  function go(index) {
+    target = Math.max(0, Math.min(cards.length - 1, index));
+    rail.scrollTo({ left: target * rail.clientWidth, behavior: reduced.matches ? 'instant' : 'smooth' });
+  }
+  previous.addEventListener('click', () => go(target - 1));
+  next.addEventListener('click', () => go(target + 1));
+  campaign.addEventListener('keydown', (event) => {
+    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+    event.preventDefault();
+    go(target + (event.key === 'ArrowLeft' ? -1 : 1));
+  });
+  rail.addEventListener('scroll', () => {
+    paint(Math.max(0, Math.min(cards.length - 1, Math.round(rail.scrollLeft / rail.clientWidth))));
+    clearTimeout(settleTimer);
+    settleTimer = setTimeout(() => { target = active; }, 150);
+  }, { passive: true });
+  // Mouse dragging follows the pointer; tapping still opens the original lightbox.
+  let drag = null;
+  let suppressClick = false;
+  rail.addEventListener('pointerdown', (event) => {
+    if (event.pointerType !== 'mouse' || event.button !== 0) return;
+    drag = { x: event.clientX, left: rail.scrollLeft, id: event.pointerId, moved: false };
+    suppressClick = false;
+  });
+  rail.addEventListener('pointermove', (event) => {
+    if (!drag) return;
+    const distance = event.clientX - drag.x;
+    if (Math.abs(distance) > 6 && !drag.moved) {
+      drag.moved = true;
+      rail.setPointerCapture(drag.id);
+      rail.classList.add('is-dragging');
+    }
+    if (drag.moved) {
+      event.preventDefault();
+      rail.scrollLeft = drag.left - distance;
+    }
+  });
+  function endDrag(event) {
+    if (!drag) return;
+    const moved = drag.moved;
+    const distance = event.clientX - drag.x;
+    const start = Math.round(drag.left / rail.clientWidth);
+    drag = null;
+    rail.classList.remove('is-dragging');
+    if (moved) {
+      suppressClick = true;
+      go(start + (Math.abs(distance) > 45 ? (distance < 0 ? 1 : -1) : 0));
+      setTimeout(() => { suppressClick = false; }, 0);
+    }
+  }
+  rail.addEventListener('pointerup', endDrag);
+  rail.addEventListener('pointercancel', () => { drag = null; rail.classList.remove('is-dragging'); });
+  rail.addEventListener('pointerleave', () => { if (drag && !drag.moved) drag = null; });
+  rail.addEventListener('dragstart', event => event.preventDefault());
+  rail.addEventListener('click', event => {
+    if (suppressClick) { event.preventDefault(); event.stopImmediatePropagation(); }
+  }, true);
+  let lastWidth = rail.clientWidth;
+  new ResizeObserver(() => {
+    if (rail.clientWidth === lastWidth) return;
+    lastWidth = rail.clientWidth;
+    rail.scrollTo({ left: active * lastWidth, behavior: 'instant' });
+    target = active;
+  }).observe(rail);
+  controls.hidden = false;
+  paint(0);
+}

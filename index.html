@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20261028-slide2" />
+  <link rel="stylesheet" href="styles.css?v=20261028-offers3" />
 </head>
 <body>
   <header class="site-header" id="top">
@@ -27,16 +27,24 @@
   <main>
     <section class="campaign section-pad soft" id="campaign">
       <div class="container">
-        <div class="section-heading campaign-heading"><p class="eyebrow">ANROSE CLINIC</p><h2>Chương trình <em>ưu đãi</em></h2><p class="section-intro">Khám phá các chương trình dành cho bạn tại Anrose. Nhấn vào từng ảnh để xem chi tiết.</p></div>
-        <div class="campaign-grid">
+        <div class="section-heading campaign-heading"><p class="eyebrow">ANROSE CLINIC</p><h2><span>Chương trình</span> <em>ưu đãi</em></h2><p class="section-intro">Khám phá các chương trình dành cho bạn tại Anrose. Nhấn vào từng ảnh để xem chi tiết.</p></div>
+        <div class="campaign-carousel" role="region" aria-roledescription="carousel" aria-label="Chương trình ưu đãi">
+        <div class="campaign-grid" id="campaign-slides" tabindex="0" aria-label="Vuốt hoặc dùng phím mũi tên để xem ưu đãi">
           <button class="media-card poster-card js-lightbox" type="button" data-full="assets/images/gallery/promo-love-20-10.webp" data-alt="Ngập tràn yêu thương – chương trình ưu đãi 20/10 tại Anrose Clinic"><img src="assets/images/gallery/promo-love-20-10.webp" alt="Ngập tràn yêu thương – chương trình ưu đãi 20/10 tại Anrose Clinic" width="2048" height="2048" fetchpriority="high" /></button>
           <button class="media-card poster-card js-lightbox" type="button" data-full="assets/images/gallery/promo-hifu-20-10.webp" data-alt="Ưu đãi nâng cơ HIFU Doublo New – 2.999K"><img src="assets/images/gallery/promo-hifu-20-10.webp" alt="Ưu đãi nâng cơ HIFU Doublo New – 2.999K" width="2048" height="1878" loading="lazy" /></button>
           <button class="media-card poster-card js-lightbox" type="button" data-full="assets/images/gallery/promo-pores-20-10.webp" data-alt="Ưu đãi thu nhỏ lỗ chân lông – 399K"><img src="assets/images/gallery/promo-pores-20-10.webp" alt="Ưu đãi thu nhỏ lỗ chân lông – 399K" width="2048" height="1878" loading="lazy" /></button>
           <button class="media-card poster-card js-lightbox" type="button" data-full="assets/images/gallery/promo-hair-removal-20-10.webp" data-alt="Ưu đãi triệt lông – 299K"><img src="assets/images/gallery/promo-hair-removal-20-10.webp" alt="Ưu đãi triệt lông – 299K" width="2048" height="1878" loading="lazy" /></button>
           <button class="media-card poster-card js-lightbox" type="button" data-full="assets/images/gallery/promo-skin-care-20-10.webp" data-alt="Ưu đãi chăm sóc da chuyên sâu – 299K"><img src="assets/images/gallery/promo-skin-care-20-10.webp" alt="Ưu đãi chăm sóc da chuyên sâu – 299K" width="2048" height="1878" loading="lazy" /></button>
           <button class="media-card poster-card js-lightbox" type="button" data-full="assets/images/gallery/promo-acne-20-10.webp" data-alt="Ưu đãi điều trị mụn – 299K"><img src="assets/images/gallery/promo-acne-20-10.webp" alt="Ưu đãi điều trị mụn – 299K" width="2048" height="1878" loading="lazy" /></button>
-          <button class="media-card poster-card reveal js-lightbox" type="button" data-full="assets/images/gallery/promo-aging.webp" data-alt="Thiết kế ưu đãi trẻ hóa tại Anrose Clinic"><img src="assets/images/gallery/promo-aging.webp" alt="Thiết kế ưu đãi trẻ hóa tại Anrose Clinic" loading="lazy" /></button>
-          <button class="media-card poster-card reveal delay-1 js-lightbox" type="button" data-full="assets/images/gallery/promo-laser-pores.webp" data-alt="Thiết kế ưu đãi laser tại Anrose Clinic"><img src="assets/images/gallery/promo-laser-pores.webp" alt="Thiết kế ưu đãi laser tại Anrose Clinic" loading="lazy" /></button>
+          <button class="media-card poster-card js-lightbox" type="button" data-full="assets/images/gallery/promo-aging.webp" data-alt="Thiết kế ưu đãi trẻ hóa tại Anrose Clinic"><img src="assets/images/gallery/promo-aging.webp" alt="Thiết kế ưu đãi trẻ hóa tại Anrose Clinic" loading="lazy" /></button>
+          <button class="media-card poster-card js-lightbox" type="button" data-full="assets/images/gallery/promo-laser-pores.webp" data-alt="Thiết kế ưu đãi laser tại Anrose Clinic"><img src="assets/images/gallery/promo-laser-pores.webp" alt="Thiết kế ưu đãi laser tại Anrose Clinic" loading="lazy" /></button>
+        </div>
+        <div class="campaign-controls" hidden>
+          <span class="campaign-count" aria-live="polite" aria-atomic="true">01 / 08</span>
+          <div class="campaign-progress" aria-hidden="true"><span></span></div>
+          <button class="campaign-prev" type="button" aria-label="Ưu đãi trước" aria-controls="campaign-slides"><span aria-hidden="true">←</span></button>
+          <button class="campaign-next" type="button" aria-label="Ưu đãi tiếp theo" aria-controls="campaign-slides"><span aria-hidden="true">→</span></button>
+        </div>
         </div>
       </div>
     </section>
@@ -181,6 +189,6 @@
   </footer>
 
   <div class="lightbox" aria-hidden="true"><button class="lightbox-close" aria-label="Đóng ảnh">×</button><div class="lightbox-inner"><img class="lightbox-image" src="" alt="" /><p class="lightbox-caption"></p></div></div>
-  <script src="script.js?v=20261028-slide2"></script>
+  <script src="script.js?v=20261028-offers3"></script>
 </body>
 </html>
