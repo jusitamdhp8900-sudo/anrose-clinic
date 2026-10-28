@@ -268,44 +268,45 @@ em { font-style: normal; font-weight: inherit; color: var(--brown); }
 }
 
 /* Opening offers: one full poster at a time, with native touch scrolling. */
-.campaign { padding-block: 64px; }
+.campaign { padding-block: 44px 56px; background: linear-gradient(180deg,#f4ede3 0%,#fbf7f0 100%); }
 .campaign > .container { display: block; }
-.campaign-heading { display: block; margin: 0 auto 36px; text-align: center; }
-.campaign-heading h2 { font-size: clamp(32px,3.4vw,46px); }
-.campaign-heading .section-intro { margin: 16px auto 0; max-width: 560px; }
-.campaign-carousel { min-width: 0; width: 100%; max-width: 740px; margin-inline: auto; }
+.campaign-heading { display: block; max-width: 740px; margin: 0 auto 24px; text-align: left; }
+.campaign-heading .eyebrow { margin-bottom: 10px; }
+.campaign-heading h2 { font-size: clamp(30px,3vw,40px); line-height: 1.2; }
+.campaign-heading .section-intro { margin: 12px 0 0; max-width: none; font-size: 14px; }
+.campaign-carousel { min-width: 0; width: 100%; max-width: 740px; margin-inline: auto; background: #f1e9de; }
 .campaign-grid { display: flex; gap: 0; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; border-radius: 0; background: transparent; border: 0; box-shadow: none; overscroll-behavior-x: contain; }
 .campaign-grid::-webkit-scrollbar { display: none; }
 .campaign-grid .poster-card { flex: 0 0 100%; width: 100%; min-width: 0; padding: 0; border: 0; border-radius: 0; box-shadow: none; background: transparent; scroll-snap-align: start; scroll-snap-stop: always; }
 .campaign-grid .poster-card img { width: 100%; height: auto; aspect-ratio: 1; object-fit: contain; border-radius: 0; transform: none; user-select: none; -webkit-user-drag: none; }
 .campaign-grid.is-dragging { scroll-snap-type: none; cursor: grabbing; }
 .campaign-grid.is-dragging .poster-card { cursor: grabbing; }
-.campaign-controls { display: flex; gap: 12px; align-items: center; margin-top: 24px; }
+.campaign-controls { display: flex; gap: 12px; align-items: center; margin-top: 0; padding: 0 24px 20px; }
 .campaign-controls[hidden] { display: none; }
 .campaign-count { min-width: 60px; font-size: 11px; letter-spacing: .12em; color: var(--brown); font-variant-numeric: tabular-nums; }
 .campaign-progress { height: 2px; flex: 1; background: var(--line); margin-right: 16px; overflow: hidden; }
 .campaign-progress span { display: block; width: 12.5%; height: 100%; background: var(--brown); transition: width .45s ease; }
-.campaign-controls button { flex-shrink: 0; width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--line); color: var(--brown); background: var(--glass); font-size: 24px; cursor: pointer; transition: background .2s, opacity .2s; }
+.campaign-controls button { flex-shrink: 0; width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(155,98,28,.24); color: var(--brown); background: transparent; font-size: 22px; cursor: pointer; transition: background .2s, opacity .2s; }
 .campaign-controls button:hover:not(:disabled) { background: var(--cream); }
 .campaign-controls button:disabled { opacity: .3; cursor: default; }
 /* The caption changes with each poster and retains room for longer offers. */
-.campaign-caption { text-align: center; min-height: 156px; padding: 28px 12px 0; }
-.campaign-offer-title { font-size: 30px; margin: 0 0 8px; }
-.campaign-offer-price { font-size: 20px; font-weight: 500; color: var(--brown); margin: 0 0 8px; }
-.campaign-offer-description { font-size: 14px; color: var(--muted); margin: 0 auto; max-width: 620px; }
+.campaign-caption { display: grid; grid-template-columns: 1fr auto; gap: 8px 24px; align-content: start; align-items: baseline; text-align: left; min-height: 112px; padding: 20px 24px 14px; }
+.campaign-offer-title { font-size: 28px; line-height: 1.25; margin: 0; text-wrap: pretty; }
+.campaign-offer-price { font-size: 18px; line-height: 1.5; font-weight: 500; color: var(--brown); margin: 0; text-align: right; max-width: 250px; }
+.campaign-offer-description { grid-column: 1 / -1; font-size: 13px; color: var(--muted); margin: 0; line-height: 1.6; }
 .site-cover { margin-top: 24px; }
 .cover-image { display: block; width: 100%; padding: 0; border: 0; background: transparent; cursor: zoom-in; }
 .cover-image img { display: block; width: 100%; height: auto; }
 @media (max-width:620px) {
   .site-cover { margin-top: 16px; }
-  .campaign { padding-block: 36px 40px; }
-  .campaign-heading { margin-bottom: 24px; }
-  .campaign-heading h2 { font-size: 32px; }
+  .campaign { padding-block: 28px 36px; }
+  .campaign-heading { margin-bottom: 20px; }
+  .campaign-heading h2 { font-size: 30px; }
   .campaign-heading .section-intro { margin-top: 12px; }
-  .campaign-controls { margin-top: 16px; }
-  .campaign-caption { min-height: 168px; padding: 22px 4px 0; }
-  .campaign-offer-title { font-size: 26px; }
-  .campaign-offer-price { font-size: 18px; }
+  .campaign-controls { margin-top: 0; padding: 0 16px 16px; }
+  .campaign-caption { grid-template-columns: 1fr; min-height: 146px; padding: 18px 16px 12px; gap: 6px; }
+  .campaign-offer-title { font-size: 25px; }
+  .campaign-offer-price { font-size: 17px; max-width: none; text-align: left; }
   .campaign-offer-description { font-size: 13px; }
 }
 
