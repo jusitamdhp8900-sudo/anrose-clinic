@@ -89,6 +89,16 @@ em { font-style: normal; font-weight: inherit; color: var(--brown); }
 .service-body h3 { font-size: 26px; min-height: 68px; text-wrap: pretty; }
 .service-body p { color: var(--muted); margin-bottom: 0; font-size: 14px; line-height: 1.8; }
 .tech-grid,.feedback-grid,.consultation-feature { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 72px; align-items: center; }
+/* Additional equipment follows the same restrained glass treatment. */
+.technology-list { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 24px; margin-top: 40px; }
+.technology-card { padding: 30px 32px; border: 1px solid #fff; border-radius: 20px; background: var(--glass); box-shadow: var(--shadow); }
+.technology-card h3 { font-size: 34px; margin: 18px 0 24px; }
+.technology-card .btn { gap: 20px; }
+@media (max-width:620px) {
+  .technology-list { grid-template-columns: 1fr; gap: 16px; margin-top: 28px; }
+  .technology-card { padding: 26px 24px; }
+  .technology-card h3 { font-size: 30px; }
+}
 .tech-copy,.feedback-copy,.consultation-copy { min-width: 0; padding: 16px 0; }
 .tech-media,.feedback-media { border-radius: 22px; padding: 8px; border: 1px solid #fff; background: var(--glass); box-shadow: var(--shadow); overflow: hidden; }
 .tech-media img,.feedback-media img { border-radius: 15px; }
