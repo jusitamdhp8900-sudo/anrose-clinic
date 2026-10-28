@@ -169,6 +169,10 @@ if (campaign) {
   let settleTimer;
   function paint(index) {
     active = index;
+    const offer = cards[index].dataset;
+    campaign.querySelector('.campaign-offer-title').textContent = offer.offerTitle;
+    campaign.querySelector('.campaign-offer-price').textContent = offer.offerPrice;
+    campaign.querySelector('.campaign-offer-description').textContent = offer.offerDescription;
     campaign.querySelector('.campaign-count').textContent =
       `${String(index + 1).padStart(2, '0')} / ${String(cards.length).padStart(2, '0')}`;
     campaign.querySelector('.campaign-progress span').style.width = `${(index + 1) / cards.length * 100}%`;

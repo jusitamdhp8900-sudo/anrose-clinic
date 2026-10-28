@@ -4,6 +4,8 @@ Bản source này đã được cập nhật để đưa toàn bộ nhóm ảnh 
 
 ## Cấu trúc nội dung
 
+Ảnh bìa đầu trang: `assets/images/cover-20-10.webp` (ảnh người dùng cung cấp).
+
 1. Chương trình ưu đãi — 6 poster mới ngày 28/10/2026, tiếp theo là 2 poster trẻ hóa và laser; bỏ poster 20/10 cũ khỏi trang
 2. Hero / giới thiệu thương hiệu
 3. Dịch vụ chính
