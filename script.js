@@ -77,7 +77,8 @@ if (toggle && nav) {
 }
 const navLinks = [...document.querySelectorAll('.main-nav a[href^="#"]:not(.nav-cta)')];
 if ('IntersectionObserver' in window && navLinks.length) {
-  const sections = navLinks.map((link) => document.querySelector(link.getAttribute('href'))).filter(Boolean);
+  // Observe every section so areas without a menu item (cover, contact) clear the indicator.
+  const sections = [...document.querySelectorAll('main section[id]')];
   const navObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) return;
