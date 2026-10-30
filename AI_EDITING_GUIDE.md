@@ -4,7 +4,7 @@
 - Premium Beauty / Medical Aesthetic / Korean Beauty Editorial.
 - Nền trắng sữa, ivory, kem sáng; tránh vàng cam nặng.
 - Accent chính: #A76B03, #9B621C, champagne #C8A16A.
-- Typography: Beautique Display cho heading nếu có font hợp lệ; Barlow cho body.
+- Typography: Cormorant Garamond cho heading, Barlow cho body (đều qua Google Fonts). Không thêm Beautique Display vào font stack nếu chưa self-host bằng giấy phép webfont, vì máy có cài font sẽ hiển thị khác điện thoại.
 - Bố cục thoáng, ít họa tiết, nhiều negative space.
 - Animation nhẹ, không lạm dụng parallax/glow.
 - Không làm ảnh điều trị quá bóng hoặc ám vàng.

@@ -3,7 +3,8 @@
   --milk: #fffdf9; --ivory: #f9f5ee; --cream: #f3ece1; --sand: #e8dccb; --beige: #ead8c3;
   --gold: #A76B03; --brown: #9B621C; --champagne: #C8A16A; --deep: #6f4512;
   --ink: #2f2721; --muted: #7a6f64; --line: rgba(155,98,28,.15); --line-soft: rgba(155,98,28,.09);
-  --serif: "Beautique Display", "Cormorant Garamond", Georgia, serif;
+  /* Webfont only: a locally installed Beautique Display made desktops differ from phones. */
+  --serif: "Cormorant Garamond", Georgia, serif;
   --sans: "Barlow", "Helvetica Neue", Arial, sans-serif;
   --ease: cubic-bezier(.22,1,.36,1);
   --ease-in-out: cubic-bezier(.65,0,.35,1);
@@ -37,7 +38,9 @@ h1,h2,h3 { font-family: var(--serif); font-weight: 500; letter-spacing: -.02em; 
 h1 { font-size: clamp(46px, 5.2vw, 78px); line-height: 1.04; margin-bottom: 0; }
 h2 { font-size: clamp(36px, 3.7vw, 56px); line-height: 1.08; margin-bottom: 0; }
 h3 { font-size: 28px; line-height: 1.2; margin-bottom: 12px; }
-h1 em,h2 em,h3 em { font-style: italic; font-weight: 400; color: var(--brown); letter-spacing: -.01em; }
+/* Cormorant defaults to old-style figures; prices and counters read better lining. */
+h1,h2,h3,.campaign-offer-price,.hero-meta strong,.technology-name,.consult-points strong,.space-caption strong,.faq-item summary { font-variant-numeric: lining-nums; }
+h1 em,h2 em,h3 em { font-style: italic; font-weight: 500; color: var(--brown); letter-spacing: -.01em; }
 em { font-style: normal; color: var(--brown); }
 .eyebrow,.mini-label { display: inline-flex; align-items: center; gap: 12px; font: 500 11px/1.6 var(--sans); letter-spacing: .22em; text-transform: uppercase; color: var(--brown); }
 .eyebrow::before,.mini-label::before { content: ''; width: 28px; height: 1px; background: currentColor; opacity: .55; }
@@ -53,7 +56,7 @@ em { font-style: normal; color: var(--brown); }
 .center-copy { max-width: 580px; margin: 24px auto 0; }
 
 /* ---------- Buttons ---------- */
-.btn { position: relative; isolation: isolate; overflow: hidden; display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 14px 28px; font-size: 14px; font-weight: 500; letter-spacing: .02em; border: 1px solid transparent; border-radius: 999px; cursor: pointer; transition: transform .5s var(--ease), box-shadow .5s var(--ease), background-color .3s, border-color .3s, color .3s; }
+.btn { position: relative; isolation: isolate; overflow: hidden; display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 14px 28px; font-size: 14px; font-weight: 500; letter-spacing: .02em; white-space: nowrap; border: 1px solid transparent; border-radius: 999px; cursor: pointer; transition: transform .5s var(--ease), box-shadow .5s var(--ease), background-color .3s, border-color .3s, color .3s; }
 .btn-primary { background: linear-gradient(135deg, #a96e1f, var(--brown) 55%, var(--deep)); color: #fff; box-shadow: 0 10px 24px -12px rgba(155,98,28,.7), inset 0 1px 0 rgba(255,255,255,.18); }
 .btn-primary::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,.28) 50%, transparent 70%); transform: translateX(-120%); transition: transform .9s var(--ease); }
 .btn-ghost { background: rgba(255,255,255,.6); border-color: var(--line); color: var(--brown); }
@@ -487,7 +490,7 @@ html:not(.js) .reveal { opacity: 1; transform: none; }
   .campaign-dots span { width: 6px; height: 6px; border-radius: 999px; background: var(--sand); transition: width .6s var(--ease), background-color .3s; }
   .campaign-dots span.is-active { width: 22px; background: var(--brown); }
   .carousel-arrows button { width: 46px; height: 46px; }
-  .hero-actions .btn { flex: 1 1 150px; }
+  .hero-actions .btn { flex: 1 1 auto; }
   .hero-meta { gap: 14px; margin-top: 36px; padding-top: 24px; }
   .hero-meta div { padding-left: 12px; }
   .hero-meta strong { font-size: 17px; }

@@ -60,10 +60,10 @@ Mở nguyên thư mục này bằng VS Code/Cursor/Claude Code. Đọc thêm `AI
 
 ## Font
 
-CSS đang dùng fallback Google Fonts cho môi trường chạy thử:
-- Heading: Cormorant Garamond fallback cho Beautique Display
-- Body: Barlow
+Website dùng font miễn phí của Google Fonts, giống nhau trên máy tính và điện thoại:
+- Tiêu đề: Cormorant Garamond
+- Nội dung: Barlow
 
-Nếu có license/font Beautique Display chính thức, đặt font local vào `assets/fonts/` rồi khai báo `@font-face` trong `styles.css`.
+Không dùng Beautique Display cài trên máy: font đó chỉ hiện trên máy đã cài, điện thoại khách sẽ thấy font khác. Chỉ đưa Beautique lên web khi có giấy phép webfont, bằng `@font-face` với file trong `assets/fonts/`.
 
-_Cập nhật lần cuối: 28/10/2026_
+_Cập nhật lần cuối: 30/10/2026_
