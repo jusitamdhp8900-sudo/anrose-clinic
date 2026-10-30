@@ -6,7 +6,7 @@
 - Accent chính: #A76B03, #9B621C, champagne #C8A16A.
 - Màu chữ: tiêu đề và chữ chính xanh lá lấy từ ảnh bìa (`--green` #0a5c3b, `--ink` #0d4a31); chữ phụ nâu (`--muted` #85623f). Phần nghiêng trong tiêu đề giữ nâu `--brown`.
 - Khung kính mờ (glassmorphism): khung, thẻ, nút phụ dùng `--glass`, `--glass-blur`, `--glass-edge`, `--glass-shadow` (khối "Glassmorphism" trong `styles.css`). Nền giữ trắng sữa/kem như cũ.
-- Lá xanh rơi nhẹ: `.falling-leaves` ngay sau `<body>` trong `index.html` (12 lá, điện thoại hiện 6). Mỗi lá chỉnh bằng biến inline: `--x` vị trí ngang, `--s` kích thước, `--d` thời gian rơi, `--sway` độ đung đưa, `--o` độ đậm, `--c` màu. Tự tắt khi máy bật giảm chuyển động.
+- Vệt sáng trên kính: mỗi khung kính có một vệt sáng chéo lướt qua một lần khi hiện ra và khi rê chuột (khối "Light sweep" trong `styles.css`, dùng `::after`). Nền trang đứng yên, không thêm vật thể bay/rơi.
 - Typography: Beautique Display cho heading (self-host trong `assets/fonts/`, khai báo `@font-face` đầu `styles.css`), Barlow cho body qua Google Fonts. Chỉ có bản Regular và Italic: giữ heading ở weight 400–500, đừng dùng 600+ (trình duyệt sẽ tự làm đậm giả).
 - Bố cục thoáng, ít họa tiết, nhiều negative space.
 - Animation nhẹ, không lạm dụng parallax/glow.
