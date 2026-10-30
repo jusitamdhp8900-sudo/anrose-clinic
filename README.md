@@ -34,27 +34,25 @@ python3 -m http.server 8000
 
 Sau đó mở `http://localhost:8000`.
 
-## Nhận đăng ký tư vấn qua email
+## Nhận đăng ký tư vấn qua Gmail
 
-Khi khách điền form "Đặt lịch tư vấn" và bấm Gửi, thông tin (họ tên, số điện thoại, dịch vụ, thời gian, ghi chú) được gửi thẳng về email của phòng khám qua dịch vụ miễn phí [Web3Forms](https://web3forms.com). Khách không cần mở Messenger.
+Khi khách điền form "Đặt lịch tư vấn" và bấm **Gửi đăng ký tư vấn**, thông tin (họ tên, số điện thoại, dịch vụ, thời gian, ghi chú) được gửi thẳng về Gmail của phòng khám qua dịch vụ miễn phí [FormSubmit](https://formsubmit.co). Không cần tạo tài khoản hay mã khóa.
 
 Cài đặt một lần:
 
-1. Vào https://web3forms.com, nhập email muốn nhận đăng ký (ví dụ email của lễ tân) và bấm **Create Access Key**.
-2. Mở hộp thư email đó, copy mã **Access Key** được gửi đến (dạng `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`).
-3. Mở `index.html`, tìm `data-access-key=""` và dán mã vào giữa hai dấu ngoặc kép:
+1. Mở `index.html`, tìm `data-formsubmit=""` và điền Gmail nhận đăng ký vào giữa hai dấu ngoặc kép:
 
    ```html
-   <form class="contact-form" method="post" data-access-key="MÃ-CỦA-BẠN">
+   <form class="contact-form" method="post" data-formsubmit="ten-gmail@gmail.com">
    ```
 
-4. Đưa website lên lại, rồi thử gửi một đăng ký để kiểm tra email đã về.
+2. Đưa website lên, rồi tự gửi thử một đăng ký trên trang. Lần đầu form sẽ báo "Chưa gửi được", đây là bình thường.
+3. Mở Gmail đó, tìm email từ FormSubmit (xem cả mục Spam/Quảng cáo) và bấm **Activate Form**.
+4. Gửi thử lại một lần nữa: từ giờ mỗi đăng ký sẽ về Gmail với tiêu đề "Đăng ký tư vấn mới: [Tên] – [SĐT]".
 
-Lưu ý:
-- Gói miễn phí của Web3Forms nhận khoảng 250 đăng ký mỗi tháng. Email đầu tiên có thể rơi vào mục Spam/Quảng cáo, hãy đánh dấu "Không phải spam".
-- Mã Access Key nằm công khai trong mã nguồn trang. Đây là cách Web3Forms được thiết kế: mã chỉ dùng để gửi email về địa chỉ đã đăng ký, không đọc được dữ liệu.
-- Nếu để trống `data-access-key`, form tự quay về cách cũ: tạo tin nhắn và mở Messenger cho khách tự gửi.
-- Nếu gửi lỗi (mất mạng…), form báo lỗi và tạo sẵn tin nhắn để khách gửi qua Messenger hoặc gọi hotline.
+Nên làm thêm: sau khi kích hoạt, FormSubmit gửi một mã ngẫu nhiên (dạng `a1b2c3d4...`). Thay địa chỉ Gmail trong `data-formsubmit` bằng mã đó để Gmail không lộ trong mã nguồn trang.
+
+Nếu gửi lỗi (mất mạng, chưa kích hoạt…), form báo lỗi và mời khách gọi hotline 0869 833 868. Thông tin không được lưu trên website.
 
 ## Chỉnh bằng Claude / Cursor
 
