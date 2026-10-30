@@ -283,6 +283,20 @@ em { font-style: normal; color: var(--brown); }
 .message-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
 .message-actions .btn { width: auto; }
 .message-actions a { color: var(--brown); font-size: 13px; text-decoration: underline; text-underline-offset: 4px; }
+.btn.is-loading { pointer-events: none; opacity: .8; }
+.btn.is-loading::after { content: ''; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.4); border-top-color: #fff; border-radius: 50%; animation: spin .8s linear infinite; }
+.form-error { margin: 0; padding: 12px 16px; border-radius: 12px; background: #fbefe8; color: #8a3b1c; font-size: 13.5px; line-height: 1.6; }
+.contact-form.is-sent > :not(.form-success) { display: none; }
+.form-success { display: grid; justify-items: center; gap: 12px; padding: 32px 8px; text-align: center; animation: fade-up .6s var(--ease) both; }
+.form-success:focus { outline: none; }
+.form-success-icon { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, #a96e1f, var(--brown) 60%, var(--deep)); color: #fff; box-shadow: 0 12px 26px -12px rgba(155,98,28,.8); }
+.form-success-icon svg { width: 28px; height: 28px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.form-success h3 { margin: 8px 0 0; font-size: 32px; }
+.form-success-text { max-width: 380px; margin: 0; color: var(--muted); font-size: 15px; }
+.form-success-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px 20px; margin-top: 10px; }
+.contact-form .form-success-actions .btn { width: auto; }
+.form-reset { padding: 8px; border: 0; background: none; color: var(--brown); font-size: 13px; text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
+@keyframes spin { to { transform: rotate(360deg); } }
 @keyframes fade-up { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
 
 /* ---------- FAQ ---------- */

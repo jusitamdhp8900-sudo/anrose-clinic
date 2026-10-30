@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20261030-polish1" />
+  <link rel="stylesheet" href="styles.css?v=20261030-booking1" />
   <script>document.documentElement.classList.add('js');</script>
   <script type="application/ld+json">
   {
@@ -277,10 +277,11 @@
 
     <section class="consult section-pad" id="contact">
       <div class="container consult-shell reveal">
-        <div class="consult-copy"><p class="eyebrow">Đặt lịch tư vấn</p><h2>Bắt đầu từ việc<br><em>hiểu đúng làn da</em></h2><p>Điền thông tin và gửi tin nhắn đến fanpage Anrose Clinic để được tư vấn và hỗ trợ đặt lịch.</p>
-          <ul class="consult-assurance"><li>Chuyên viên hỗ trợ tư vấn và đặt lịch</li><li>Thông tin của bạn không được lưu trên website</li><li>Phản hồi qua Messenger của Anrose Clinic</li></ul>
+        <div class="consult-copy"><p class="eyebrow">Đặt lịch tư vấn</p><h2>Bắt đầu từ việc<br><em>hiểu đúng làn da</em></h2><p>Để lại họ tên và số điện thoại, Anrose Clinic sẽ liên hệ tư vấn và hỗ trợ đặt lịch cho bạn.</p>
+          <ul class="consult-assurance"><li>Chuyên viên hỗ trợ tư vấn và đặt lịch</li><li>Thông tin chỉ được gửi đến Anrose Clinic</li><li>Liên hệ lại qua điện thoại hoặc Messenger</li></ul>
         </div>
-        <form class="contact-form" method="post">
+        <!-- data-access-key: Web3Forms key that emails each booking to the clinic (see README). Left empty, the form falls back to the Messenger flow. -->
+        <form class="contact-form" method="post" data-access-key="">
           <label for="contact-name">Họ và tên<input id="contact-name" name="name" type="text" placeholder="Tên của bạn" autocomplete="name" maxlength="100" required></label>
           <label for="contact-phone">Số điện thoại<input id="contact-phone" name="phone" type="tel" placeholder="09xx xxx xxx" autocomplete="tel" inputmode="tel" maxlength="24" required></label>
           <label for="contact-service">Dịch vụ quan tâm<select id="contact-service" name="service"><option>Chăm sóc da</option><option>HIFU Doublo New</option><option>Scahil</option><option>Pico Majesty</option><option>Laser</option><option>Tư vấn khác</option></select></label>
@@ -289,10 +290,21 @@
             <label for="contact-time">Khung giờ<select id="contact-time" name="time"><option value="">Linh hoạt</option><option>Buổi sáng</option><option>Buổi chiều</option><option>Buổi tối</option></select></label>
           </div>
           <label for="contact-note"><span>Ghi chú <span class="optional">(không bắt buộc)</span></span><textarea id="contact-note" name="note" rows="3" maxlength="500" placeholder="Tình trạng da hoặc điều bạn muốn được tư vấn"></textarea></label>
-          <p class="contact-hint" id="contact-hint">Thông tin sẽ được tạo thành tin nhắn. Khi Messenger mở, bạn dán nội dung và bấm Gửi đến Anrose Clinic.</p>
-          <button class="btn btn-primary btn-arrow" type="submit" aria-describedby="contact-hint" hidden>Tạo tin nhắn &amp; mở Messenger</button>
+          <input class="visually-hidden" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <p class="contact-hint" id="contact-hint">Thông tin được gửi trực tiếp đến Anrose Clinic. Chuyên viên sẽ gọi lại để tư vấn và xác nhận lịch hẹn.</p>
+          <button class="btn btn-primary btn-arrow" type="submit" aria-describedby="contact-hint" hidden>Gửi đăng ký tư vấn</button>
+          <p class="form-error" role="alert" hidden></p>
           <p class="form-alt">Hoặc gọi ngay <a href="tel:0869833868">0869 833 868</a></p>
           <noscript><p>Vui lòng bật JavaScript hoặc <a href="https://m.me/anrose.phongkhamdalieu" target="_blank" rel="noopener noreferrer">nhắn tin trực tiếp cho Anrose Clinic</a>.</p></noscript>
+          <div class="form-success" hidden tabindex="-1">
+            <span class="form-success-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+            <h3>Đã gửi đăng ký!</h3>
+            <p class="form-success-text">Cảm ơn bạn. Anrose Clinic đã nhận thông tin và sẽ liên hệ lại sớm nhất.</p>
+            <div class="form-success-actions">
+              <a class="btn btn-ghost" href="https://m.me/anrose.phongkhamdalieu" target="_blank" rel="noopener noreferrer">Nhắn tin thêm qua Messenger ↗</a>
+              <button class="form-reset" type="button">Gửi đăng ký khác</button>
+            </div>
+          </div>
           <div class="message-draft" hidden>
             <label for="contact-message">Tin nhắn đã tạo<textarea id="contact-message" rows="6" readonly></textarea></label>
             <p class="message-status" role="status" aria-live="polite"></p>
@@ -377,6 +389,6 @@
     <div class="lightbox-inner"><img class="lightbox-image" src="" alt="" /><p class="lightbox-caption"></p></div>
     <button class="lightbox-nav lightbox-next" type="button" aria-label="Ảnh tiếp theo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
   </div>
-  <script src="script.js?v=20261028-redesign3"></script>
+  <script src="script.js?v=20261030-booking1"></script>
 </body>
 </html>

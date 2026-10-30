@@ -501,7 +501,8 @@ if (campaign) {
   scheduleAutoplay();
 }
 
-// Prepare a customer-owned message; no form data is put into URLs or stored.
+// Booking form: with a Web3Forms key the request is emailed straight to the clinic; without one,
+// or if sending fails, it becomes a message the customer sends on Messenger. Nothing goes into URLs.
 const contactForm = document.querySelector('.contact-form');
 if (contactForm) {
   const nameInput = contactForm.querySelector('[name="name"]');
@@ -510,6 +511,8 @@ if (contactForm) {
   const dateInput = contactForm.querySelector('[name="date"]');
   const timeInput = contactForm.querySelector('[name="time"]');
   const noteInput = contactForm.querySelector('[name="note"]');
+  const botInput = contactForm.querySelector('[name="botcheck"]');
+  const accessKey = (contactForm.dataset.accessKey || '').trim();
   // Appointments can only be requested from today onwards (local date, not UTC).
   if (dateInput) {
     const now = new Date();
@@ -522,8 +525,15 @@ if (contactForm) {
   const draft = contactForm.querySelector('.message-draft');
   const message = contactForm.querySelector('#contact-message');
   const status = contactForm.querySelector('.message-status');
+  const success = contactForm.querySelector('.form-success');
+  const successText = contactForm.querySelector('.form-success-text');
+  const errorBox = contactForm.querySelector('.form-error');
+  const hint = contactForm.querySelector('.contact-hint');
   const messengerURL = 'https://m.me/anrose.phongkhamdalieu';
   const submit = contactForm.querySelector('[type="submit"]');
+  const submitLabel = accessKey ? 'Gửi đăng ký tư vấn' : 'Tạo tin nhắn & mở Messenger';
+  if (!accessKey) hint.textContent = 'Thông tin sẽ được tạo thành tin nhắn. Khi Messenger mở, bạn dán nội dung và bấm Gửi đến Anrose Clinic.';
+  submit.textContent = submitLabel;
   submit.hidden = false;
   function validateContact() {
     nameInput.setCustomValidity(nameInput.value.trim().length < 2 ? 'Vui lòng nhập họ và tên của bạn.' : '');
@@ -533,6 +543,29 @@ if (contactForm) {
     return contactForm.reportValidity();
   }
   [nameInput, phoneInput].forEach(input => input.addEventListener('input', () => input.setCustomValidity('')));
+  function bookingDetails() {
+    return {
+      name: nameInput.value.trim(),
+      phone: phoneInput.value.trim(),
+      service: serviceInput.value,
+      when: [dateInput?.value ? formatDate(dateInput.value) : '', timeInput?.value || ''].filter(Boolean).join(' – '),
+      note: noteInput?.value.trim() || ''
+    };
+  }
+  function showDraft(details, text) {
+    const lines = [
+      'Xin chào Anrose Clinic, tôi muốn được tư vấn và đặt lịch.',
+      `Họ và tên: ${details.name}`,
+      `Số điện thoại: ${details.phone}`,
+      `Dịch vụ quan tâm: ${details.service}`
+    ];
+    if (details.when) lines.push(`Thời gian mong muốn: ${details.when}`);
+    if (details.note) lines.push(`Ghi chú: ${details.note}`);
+    lines.push('Nhờ Anrose liên hệ tư vấn giúp tôi. Cảm ơn Anrose!');
+    message.value = lines.join('\n');
+    draft.hidden = false;
+    status.textContent = text;
+  }
   async function copyMessage() {
     try {
       if (!navigator.clipboard || !window.isSecureContext) throw new Error('Clipboard unavailable');
@@ -542,30 +575,80 @@ if (contactForm) {
       status.textContent = 'Chưa sao chép được. Hãy chọn và sao chép nội dung bên trên, sau đó mở Messenger, dán và bấm Gửi.';
     }
   }
-  contactForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-    if (!validateContact()) return;
-    const lines = [
-      'Xin chào Anrose Clinic, tôi muốn được tư vấn và đặt lịch.',
-      `Họ và tên: ${nameInput.value.trim()}`,
-      `Số điện thoại: ${phoneInput.value.trim()}`,
-      `Dịch vụ quan tâm: ${serviceInput.value}`
-    ];
-    if (dateInput?.value || timeInput?.value) {
-      lines.push(`Thời gian mong muốn: ${[dateInput?.value ? formatDate(dateInput.value) : '', timeInput?.value || ''].filter(Boolean).join(' – ')}`);
+  async function emailBooking(details) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 15000);
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: accessKey,
+          subject: `Đăng ký tư vấn mới: ${details.name} – ${details.phone}`,
+          from_name: 'Website Anrose Clinic',
+          'Họ và tên': details.name,
+          'Số điện thoại': details.phone,
+          'Dịch vụ quan tâm': details.service,
+          'Thời gian mong muốn': details.when || 'Linh hoạt',
+          'Ghi chú': details.note || '—'
+        }),
+        signal: controller.signal
+      });
+      const result = await response.json().catch(() => ({}));
+      return response.ok && result.success === true;
+    } catch {
+      return false;
+    } finally {
+      clearTimeout(timer);
     }
-    if (noteInput?.value.trim()) lines.push(`Ghi chú: ${noteInput.value.trim()}`);
-    lines.push('Nhờ Anrose liên hệ tư vấn giúp tôi. Cảm ơn Anrose!');
-    message.value = lines.join('\n');
-    draft.hidden = false;
-    status.textContent = 'Đang chuẩn bị nội dung. Nếu Messenger chưa mở, bạn có thể bấm “Mở lại Messenger” bên dưới.';
-    // Start copying within the click gesture; open synchronously to avoid popup blocking.
-    void copyMessage();
-    window.open(messengerURL, '_blank', 'noopener,noreferrer');
+  }
+  function showSuccess(details) {
+    successText.textContent = `Cảm ơn ${details.name}. Anrose Clinic đã nhận thông tin và sẽ gọi lại cho bạn qua số ${details.phone} sớm nhất.`;
+    draft.hidden = true;
+    contactForm.classList.add('is-sent');
+    success.hidden = false;
+    success.focus();
+  }
+  function setSending(sending) {
+    submit.disabled = sending;
+    submit.classList.toggle('is-loading', sending);
+    submit.textContent = sending ? 'Đang gửi…' : submitLabel;
+  }
+  contactForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (submit.disabled || !validateContact()) return;
+    errorBox.hidden = true;
+    const details = bookingDetails();
+    if (!accessKey) {
+      showDraft(details, 'Đang chuẩn bị nội dung. Nếu Messenger chưa mở, bạn có thể bấm “Mở lại Messenger” bên dưới.');
+      // Start copying within the click gesture; open synchronously to avoid popup blocking.
+      void copyMessage();
+      window.open(messengerURL, '_blank', 'noopener,noreferrer');
+      return;
+    }
+    // The hidden checkbox is only ever ticked by bots: pretend it worked and send nothing.
+    if (botInput?.checked) { showSuccess(details); return; }
+    setSending(true);
+    const sent = await emailBooking(details);
+    setSending(false);
+    if (sent) {
+      showSuccess(details);
+    } else {
+      errorBox.textContent = 'Chưa gửi được đăng ký, có thể do mất kết nối. Bạn thử lại, gọi 0869 833 868, hoặc gửi tin nhắn bên dưới qua Messenger.';
+      errorBox.hidden = false;
+      showDraft(details, 'Bấm “Sao chép tin nhắn”, mở Messenger, dán và bấm Gửi.');
+    }
   });
   contactForm.querySelector('.copy-message').addEventListener('click', () => {
     message.focus();
     message.select();
     void copyMessage();
+  });
+  contactForm.querySelector('.form-reset')?.addEventListener('click', () => {
+    contactForm.reset();
+    contactForm.classList.remove('is-sent');
+    success.hidden = true;
+    errorBox.hidden = true;
+    nameInput.focus();
   });
 }
