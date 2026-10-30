@@ -226,6 +226,112 @@ if (serviceSlider) {
   update();
 }
 
+// Photo sliders: one photo at a time, arrows/dots/swipe/drag, loops, and moves on by itself every 5s.
+// The 5s timer is the filling dot (CSS animation), so pausing the animation also pauses autoplay.
+document.querySelectorAll('.photo-slider').forEach((slider) => {
+  const rail = slider.querySelector('.photo-rail');
+  const slides = [...rail.querySelectorAll('.photo-slide')];
+  const count = slider.querySelector('.photo-count');
+  const dotsWrap = slider.querySelector('.photo-dots');
+  if (slides.length < 2) return;
+  const dots = slides.map((_, i) => {
+    const dot = document.createElement('span');
+    dot.append(document.createElement('i'));
+    dot.addEventListener('click', () => go(i));
+    dotsWrap.append(dot);
+    return dot;
+  });
+  let active = -1;
+  function paint(index) {
+    if (index === active) return;
+    active = index;
+    dots.forEach((dot, i) => dot.classList.toggle('is-active', i === index));
+    slides.forEach((slide, i) => { slide.tabIndex = i === index ? 0 : -1; });
+    count.textContent = `${String(index + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
+  }
+  function go(index) {
+    const target = (index + slides.length) % slides.length;
+    paint(target);
+    rail.scrollTo({ left: target * rail.clientWidth, behavior: reducedMotion.matches ? 'instant' : 'smooth' });
+  }
+  slider.querySelector('.photo-prev').addEventListener('click', () => go(active - 1));
+  slider.querySelector('.photo-next').addEventListener('click', () => go(active + 1));
+  rail.addEventListener('keydown', (event) => {
+    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+    event.preventDefault();
+    go(active + (event.key === 'ArrowLeft' ? -1 : 1));
+  });
+  let settleTimer;
+  rail.addEventListener('scroll', () => {
+    clearTimeout(settleTimer);
+    settleTimer = setTimeout(() => paint(Math.round(rail.scrollLeft / rail.clientWidth)), 120);
+  }, { passive: true });
+  new ResizeObserver(() => rail.scrollTo({ left: Math.max(active, 0) * rail.clientWidth, behavior: 'instant' })).observe(rail);
+
+  // Autoplay: runs only while the slider is on screen, the tab is visible and nobody is hovering or focused inside.
+  let inView = false;
+  let hovering = false;
+  let focused = false;
+  function syncPause() {
+    slider.classList.toggle('is-paused', !inView || hovering || focused || document.hidden || !!drag);
+  }
+  if (!reducedMotion.matches) {
+    slider.classList.add('is-autoplay');
+    dotsWrap.addEventListener('animationend', () => go(active + 1));
+  }
+  new IntersectionObserver(([entry]) => {
+    inView = entry.isIntersecting;
+    // Load every photo in the slider once it is close, so the next slide is ready when it moves in.
+    if (inView) rail.querySelectorAll('img[loading="lazy"]').forEach((img) => { img.loading = 'eager'; });
+    syncPause();
+  }, { threshold: 0.35 }).observe(rail);
+  slider.addEventListener('pointerenter', (event) => { if (event.pointerType === 'mouse') { hovering = true; syncPause(); } });
+  slider.addEventListener('pointerleave', () => { hovering = false; syncPause(); });
+  slider.addEventListener('focusin', () => { focused = true; syncPause(); });
+  slider.addEventListener('focusout', () => { focused = false; syncPause(); });
+  document.addEventListener('visibilitychange', syncPause);
+
+  // Mouse dragging; a drag never opens the lightbox.
+  let drag = null;
+  let suppressClick = false;
+  rail.addEventListener('pointerdown', (event) => {
+    if (event.pointerType !== 'mouse' || event.button !== 0) return;
+    drag = { x: event.clientX, left: rail.scrollLeft, id: event.pointerId, moved: false };
+    suppressClick = false;
+  });
+  rail.addEventListener('pointermove', (event) => {
+    if (!drag) return;
+    const distance = event.clientX - drag.x;
+    if (Math.abs(distance) > 6 && !drag.moved) {
+      drag.moved = true;
+      rail.setPointerCapture(drag.id);
+      rail.classList.add('is-dragging');
+    }
+    if (drag.moved) rail.scrollLeft = drag.left - distance;
+  });
+  rail.addEventListener('pointerup', (event) => {
+    if (!drag) return;
+    const { moved, left } = drag;
+    const distance = event.clientX - drag.x;
+    drag = null;
+    rail.classList.remove('is-dragging');
+    syncPause();
+    if (!moved) return;
+    suppressClick = true;
+    setTimeout(() => { suppressClick = false; }, 0);
+    go(Math.round(left / rail.clientWidth) + (Math.abs(distance) > 45 ? (distance < 0 ? 1 : -1) : 0));
+  });
+  rail.addEventListener('pointercancel', () => { drag = null; rail.classList.remove('is-dragging'); syncPause(); });
+  rail.addEventListener('dragstart', (event) => event.preventDefault());
+  rail.addEventListener('click', (event) => {
+    if (suppressClick) { event.preventDefault(); event.stopImmediatePropagation(); }
+  }, true);
+
+  slider.querySelector('.photo-controls').hidden = false;
+  paint(0);
+  syncPause();
+});
+
 // Lightbox: opens images from the same section as a small gallery with arrows, keys and swipe.
 const lightbox = document.querySelector('.lightbox');
 const lightboxImage = document.querySelector('.lightbox-image');
