@@ -249,26 +249,34 @@ em { font-style: normal; color: var(--brown); }
 
 
 /* ---------- Photo sliders ---------- */
-/* One photo at a time inside a glass frame; autoplay every 5s, shown by the filling dot. */
-.photo-slider { --photo-ratio: 4 / 3; min-width: 0; max-width: 980px; margin-inline: auto; }
-.photo-slider.is-square { --photo-ratio: 1 / 1; max-width: none; margin: 0; }
-.photo-stage { position: relative; padding: 10px; border-radius: 32px; }
-.photo-rail { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; border-radius: 24px; outline: none; }
+/* Editorial carousel: the current photo sits centred, its neighbours peek in smaller and faded.
+   Autoplay every 5s; the thin line next to the counter is the timer. */
+.photo-slider { --photo-ratio: 4 / 3; --slide-w: min(820px, 62cqw); --slide-gap: 28px; min-width: 0; }
+.photo-slider.is-square { --photo-ratio: 1 / 1; --slide-w: 86cqw; --slide-gap: 16px; }
+/* Slide widths are measured against the stage (cqw), so padding and flex-basis agree. */
+.photo-stage { container-type: inline-size; }
+.photo-slider:not(.is-square) .photo-stage { margin-inline: calc(50% - 50vw); }
+.photo-rail { position: relative; display: flex; gap: var(--slide-gap); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; margin-block: -14px -60px; padding: 14px calc((100% - var(--slide-w)) / 2) 60px; outline: none; }
 .photo-rail::-webkit-scrollbar { display: none; }
 .photo-rail.is-dragging { scroll-snap-type: none; cursor: grabbing; }
-.photo-slide { flex: 0 0 100%; min-width: 0; border-radius: 0; scroll-snap-align: start; scroll-snap-stop: always; }
-.photo-slide img { aspect-ratio: var(--photo-ratio); height: auto; max-height: 68vh; object-fit: cover; user-select: none; -webkit-user-drag: none; }
-.photo-controls { display: flex; align-items: center; gap: 20px; margin-top: 18px; padding-inline: 6px; }
+.photo-slide { flex: 0 0 var(--slide-w); min-width: 0; border-radius: var(--radius-lg); box-shadow: var(--shadow); scroll-snap-align: center; scroll-snap-stop: always; transition: transform 1s var(--ease), opacity 1s var(--ease), box-shadow 1s var(--ease); }
+.js .photo-slide:not(.is-current) { transform: scale(.9); opacity: .38; box-shadow: none; }
+.photo-slide img { aspect-ratio: var(--photo-ratio); height: auto; max-height: 64vh; object-fit: cover; user-select: none; -webkit-user-drag: none; }
+.photo-controls { display: flex; align-items: center; justify-content: space-between; gap: 16px 32px; margin: 28px auto 0; position: relative; }
+.photo-slider:not(.is-square) .photo-controls { max-width: min(820px, 62vw); }
+.photo-slider.is-square .photo-controls { padding-inline: 7%; }
 .photo-controls[hidden] { display: none; }
-.photo-dots { display: flex; flex: 1; flex-wrap: wrap; align-items: center; gap: 8px; }
-.photo-dots span { position: relative; overflow: hidden; width: 8px; height: 8px; border-radius: 999px; background: var(--sand); cursor: pointer; transition: width .6s var(--ease), background-color .3s; }
-.photo-dots span.is-active { width: 40px; background: rgba(155,98,28,.16); }
-.photo-dots i { position: absolute; inset: 0 auto 0 0; width: 0; border-radius: inherit; background: linear-gradient(90deg, var(--champagne), var(--brown)); }
-.photo-dots span.is-active i { width: 100%; }
-.photo-slider.is-autoplay .photo-dots span.is-active i { animation: photo-timer 5s linear both; }
-.photo-slider.is-paused .photo-dots span.is-active i,.lightbox-open .photo-slider.is-autoplay .photo-dots span.is-active i { animation-play-state: paused; }
+.photo-caption { flex: 1; min-width: 0; margin: 0; font-family: var(--serif); font-style: italic; font-size: 19px; line-height: 1.35; color: var(--brown); transition: opacity .4s var(--ease), transform .4s var(--ease); }
+.photo-caption.is-swapping { opacity: 0; transform: translateY(6px); }
+.photo-nav { display: flex; align-items: center; gap: 18px; flex-shrink: 0; }
+.photo-count { color: var(--muted); font-size: 13px; letter-spacing: .08em; font-variant-numeric: tabular-nums lining-nums; white-space: nowrap; }
+.photo-count b { font-family: var(--serif); font-size: 26px; font-weight: 400; letter-spacing: 0; color: var(--green); margin-right: 2px; }
+.photo-progress { position: relative; width: 96px; height: 1px; background: var(--line); }
+.photo-progress span { position: absolute; inset: -0.5px auto -0.5px 0; width: 100%; background: linear-gradient(90deg, var(--champagne), var(--brown)); }
+.photo-slider.is-autoplay .photo-progress span { animation: photo-timer 5s linear both; }
+.photo-slider.is-autoplay.is-paused .photo-progress span,.lightbox-open .photo-slider.is-autoplay .photo-progress span { animation-play-state: paused; }
 @keyframes photo-timer { from { width: 0; } to { width: 100%; } }
-.photo-count { color: var(--champagne); font-size: 12px; letter-spacing: .16em; font-variant-numeric: tabular-nums; }
+.photo-nav .carousel-arrows button { width: 44px; height: 44px; }
 .space-caption { z-index: 1; }
 
 /* ---------- Space ---------- */
@@ -427,7 +435,7 @@ html:not(.js) .reveal { opacity: 1; transform: none; }
 
 
 /* ---------- Glassmorphism ---------- */
-.nav-wrap,.site-header.is-scrolled .nav-wrap,.campaign-stage,.photo-stage,.service-card,.technology-carousel,.hero-glass-stack,.space-caption,.consult-shell,.contact-form,.faq-item,.faq-item[open],.back-to-top,.carousel-arrows button,.btn-ghost,.menu-toggle,.campaign-badge,.visit-icon {
+.nav-wrap,.site-header.is-scrolled .nav-wrap,.campaign-stage,.service-card,.technology-carousel,.hero-glass-stack,.space-caption,.consult-shell,.contact-form,.faq-item,.faq-item[open],.back-to-top,.carousel-arrows button,.btn-ghost,.menu-toggle,.campaign-badge,.visit-icon {
   background: var(--glass);
   -webkit-backdrop-filter: var(--glass-blur);
   backdrop-filter: var(--glass-blur);
@@ -436,18 +444,18 @@ html:not(.js) .reveal { opacity: 1; transform: none; }
 }
 /* Light sweep: a diagonal reflection crosses each glass frame once as it appears, and again on hover. */
 .service-card,.technology-carousel,.faq-item { position: relative; }
-.campaign-stage::after,.photo-stage::after,.service-card::after,.technology-carousel::after,.hero-glass-stack::after,.space-caption::after,.consult-shell::after,.contact-form::after,.faq-item::after {
+.campaign-stage::after,.service-card::after,.technology-carousel::after,.hero-glass-stack::after,.space-caption::after,.consult-shell::after,.contact-form::after,.faq-item::after {
   content: ''; position: absolute; inset: 0; z-index: 2; border-radius: inherit; pointer-events: none;
   background: linear-gradient(115deg, transparent 38%, rgba(255,255,255,.16) 44%, rgba(255,255,255,.62) 49%, rgba(255,255,255,.16) 54%, transparent 60%) 100% 0 / 260% 100% no-repeat;
 }
 :is(.campaign-stage,.technology-carousel,.consult-shell).is-visible::after,
-.is-visible :is(.photo-stage,.service-card,.hero-glass-stack,.space-caption,.contact-form,.faq-item)::after { animation: glass-sheen 1.6s var(--ease-in-out) .55s both; }
+.is-visible :is(.service-card,.hero-glass-stack,.space-caption,.contact-form,.faq-item)::after { animation: glass-sheen 1.6s var(--ease-in-out) .55s both; }
 .is-visible :is(.service-card,.faq-item):nth-child(2)::after { animation-delay: .7s; }
 .is-visible :is(.service-card,.faq-item):nth-child(3)::after { animation-delay: .85s; }
 .is-visible :is(.service-card,.faq-item):nth-child(n+4)::after { animation-delay: 1s; }
 @keyframes glass-sheen { from { background-position: 100% 0; } to { background-position: 0 0; } }
 @media (hover:hover) {
-  :is(.campaign-stage,.photo-stage,.service-card,.technology-carousel,.hero-glass-stack,.space-caption,.consult-shell,.contact-form,.faq-item):hover::after { background-position: 0 0; transition: background-position 1.1s var(--ease-in-out); }
+  :is(.campaign-stage,.service-card,.technology-carousel,.hero-glass-stack,.space-caption,.consult-shell,.contact-form,.faq-item):hover::after { background-position: 0 0; transition: background-position 1.1s var(--ease-in-out); }
 }
 /* Surfaces with small text or form fields get a denser frost so the copy stays easy to read. */
 .site-header.is-scrolled .nav-wrap,.contact-form,.faq-item[open],.hero-glass-stack,.space-caption,.campaign-badge { background: var(--glass-strong); }
@@ -576,11 +584,13 @@ html:not(.js) .reveal { opacity: 1; transform: none; }
   .check-list li { font-size: 14.5px; }
   .consultation-copy h3 { font-size: 30px; }
   .media-card { border-radius: 16px; }
-  .photo-slider { --photo-ratio: 1 / 1; }
-  .photo-stage { padding: 6px; border-radius: 24px; }
-  .photo-rail { border-radius: 18px; }
-  .photo-slide { border-radius: 0; }
-  .photo-controls { gap: 14px; margin-top: 14px; }
+  .photo-slider,.photo-slider.is-square { --photo-ratio: 1 / 1; --slide-w: 80cqw; --slide-gap: 12px; }
+  .photo-slider.is-square .photo-stage { margin-inline: -16px; }
+  .photo-slide { border-radius: 20px; }
+  .photo-controls,.photo-slider:not(.is-square) .photo-controls,.photo-slider.is-square .photo-controls { flex-wrap: wrap; max-width: none; margin-top: 18px; padding-inline: 0; }
+  .photo-caption { flex-basis: 100%; font-size: 17px; }
+  .photo-nav { width: 100%; justify-content: space-between; }
+  .photo-progress { flex: 1; width: auto; }
   .space-caption { bottom: 14px; left: 14px; max-width: calc(100% - 28px); padding: 16px 20px; border-radius: 14px; }
   .space-caption strong { font-size: 19px; }
   .consult-shell { padding: 26px 16px 16px; border-radius: 28px; gap: 28px; }
@@ -613,7 +623,7 @@ html:not(.js) .reveal { opacity: 1; transform: none; }
   .lightbox-caption { font-size: 12.5px; }
 }
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))) {
-  .nav-wrap,.site-header.is-scrolled .nav-wrap,.hero-glass-stack,.space-caption,.main-nav,.campaign-stage,.photo-stage,.service-card,.technology-carousel,.consult-shell,.contact-form,.faq-item,.back-to-top,.carousel-arrows button,.btn-ghost,.menu-toggle,.campaign-badge,.visit-icon,.mobile-bar { background: #fffdf9; }
+  .nav-wrap,.site-header.is-scrolled .nav-wrap,.hero-glass-stack,.space-caption,.main-nav,.campaign-stage,.service-card,.technology-carousel,.consult-shell,.contact-form,.faq-item,.back-to-top,.carousel-arrows button,.btn-ghost,.menu-toggle,.campaign-badge,.visit-icon,.mobile-bar { background: #fffdf9; }
 }
 @media (prefers-reduced-motion:reduce) {
   html { scroll-behavior: auto; }

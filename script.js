@@ -226,33 +226,49 @@ if (serviceSlider) {
   update();
 }
 
-// Photo sliders: one photo at a time, arrows/dots/swipe/drag, loops, and moves on by itself every 5s.
-// The 5s timer is the filling dot (CSS animation), so pausing the animation also pauses autoplay.
+// Photo sliders: the current photo centred with its neighbours peeking in; arrows/swipe/drag, loops,
+// and moves on by itself every 5s. The 5s timer is the line's CSS animation, so pausing it pauses autoplay.
 document.querySelectorAll('.photo-slider').forEach((slider) => {
   const rail = slider.querySelector('.photo-rail');
   const slides = [...rail.querySelectorAll('.photo-slide')];
+  const caption = slider.querySelector('.photo-caption');
   const count = slider.querySelector('.photo-count');
-  const dotsWrap = slider.querySelector('.photo-dots');
+  const timer = slider.querySelector('.photo-progress span');
   if (slides.length < 2) return;
-  const dots = slides.map((_, i) => {
-    const dot = document.createElement('span');
-    dot.append(document.createElement('i'));
-    dot.addEventListener('click', () => go(i));
-    dotsWrap.append(dot);
-    return dot;
-  });
+  const total = String(slides.length).padStart(2, '0');
   let active = -1;
+  let swapTimer;
+  const offsetFor = (i) => slides[i].offsetLeft - (rail.clientWidth - slides[i].offsetWidth) / 2;
+  function nearest(position = rail.scrollLeft) {
+    let best = 0;
+    slides.forEach((_, i) => { if (Math.abs(offsetFor(i) - position) < Math.abs(offsetFor(best) - position)) best = i; });
+    return best;
+  }
+  function restartTimer() {
+    timer.style.animation = 'none';
+    void timer.offsetWidth;
+    timer.style.animation = '';
+  }
   function paint(index) {
     if (index === active) return;
+    const first = active === -1;
     active = index;
-    dots.forEach((dot, i) => dot.classList.toggle('is-active', i === index));
-    slides.forEach((slide, i) => { slide.tabIndex = i === index ? 0 : -1; });
-    count.textContent = `${String(index + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('is-current', i === index);
+      slide.tabIndex = i === index ? 0 : -1;
+    });
+    count.innerHTML = `<b>${String(index + 1).padStart(2, '0')}</b> / ${total}`;
+    restartTimer();
+    clearTimeout(swapTimer);
+    const text = slides[index].dataset.alt || '';
+    if (first || reducedMotion.matches) { caption.textContent = text; return; }
+    caption.classList.add('is-swapping');
+    swapTimer = setTimeout(() => { caption.textContent = text; caption.classList.remove('is-swapping'); }, 260);
   }
   function go(index) {
     const target = (index + slides.length) % slides.length;
     paint(target);
-    rail.scrollTo({ left: target * rail.clientWidth, behavior: reducedMotion.matches ? 'instant' : 'smooth' });
+    rail.scrollTo({ left: offsetFor(target), behavior: reducedMotion.matches ? 'instant' : 'smooth' });
   }
   slider.querySelector('.photo-prev').addEventListener('click', () => go(active - 1));
   slider.querySelector('.photo-next').addEventListener('click', () => go(active + 1));
@@ -261,12 +277,20 @@ document.querySelectorAll('.photo-slider').forEach((slider) => {
     event.preventDefault();
     go(active + (event.key === 'ArrowLeft' ? -1 : 1));
   });
+  // A click on a peeking neighbour brings it to the centre instead of opening the lightbox.
+  rail.addEventListener('click', (event) => {
+    const slide = event.target.closest('.photo-slide');
+    if (!slide || slide.classList.contains('is-current')) return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    go(slides.indexOf(slide));
+  }, true);
   let settleTimer;
   rail.addEventListener('scroll', () => {
     clearTimeout(settleTimer);
-    settleTimer = setTimeout(() => paint(Math.round(rail.scrollLeft / rail.clientWidth)), 120);
+    settleTimer = setTimeout(() => paint(nearest()), 120);
   }, { passive: true });
-  new ResizeObserver(() => rail.scrollTo({ left: Math.max(active, 0) * rail.clientWidth, behavior: 'instant' })).observe(rail);
+  new ResizeObserver(() => rail.scrollTo({ left: offsetFor(Math.max(active, 0)), behavior: 'instant' })).observe(rail);
 
   // Autoplay: runs only while the slider is on screen, the tab is visible and nobody is hovering or focused inside.
   let inView = false;
@@ -277,7 +301,7 @@ document.querySelectorAll('.photo-slider').forEach((slider) => {
   }
   if (!reducedMotion.matches) {
     slider.classList.add('is-autoplay');
-    dotsWrap.addEventListener('animationend', () => go(active + 1));
+    timer.addEventListener('animationend', () => go(active + 1));
   }
   new IntersectionObserver(([entry]) => {
     inView = entry.isIntersecting;
@@ -319,7 +343,7 @@ document.querySelectorAll('.photo-slider').forEach((slider) => {
     if (!moved) return;
     suppressClick = true;
     setTimeout(() => { suppressClick = false; }, 0);
-    go(Math.round(left / rail.clientWidth) + (Math.abs(distance) > 45 ? (distance < 0 ? 1 : -1) : 0));
+    go(nearest(left) + (Math.abs(distance) > 45 ? (distance < 0 ? 1 : -1) : 0));
   });
   rail.addEventListener('pointercancel', () => { drag = null; rail.classList.remove('is-dragging'); syncPause(); });
   rail.addEventListener('dragstart', (event) => event.preventDefault());
