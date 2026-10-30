@@ -65,10 +65,10 @@ Mở nguyên thư mục này bằng VS Code/Cursor/Claude Code. Đọc thêm `AI
 
 ## Font
 
-Website dùng font miễn phí của Google Fonts, giống nhau trên máy tính và điện thoại:
-- Tiêu đề: Cormorant Garamond
-- Nội dung: Barlow
+Font giống nhau trên máy tính và điện thoại:
+- Tiêu đề: Beautique Display, tải từ `assets/fonts/` (Regular và Italic, đủ dấu tiếng Việt)
+- Nội dung: Barlow (Google Fonts)
 
-Không dùng Beautique Display cài trên máy: font đó chỉ hiện trên máy đã cài, điện thoại khách sẽ thấy font khác. Chỉ đưa Beautique lên web khi có giấy phép webfont, bằng `@font-face` với file trong `assets/fonts/`.
+Đổi font tiêu đề: thay file trong `assets/fonts/` và sửa hai khối `@font-face` ở đầu `styles.css`.
 
 _Cập nhật lần cuối: 30/10/2026_

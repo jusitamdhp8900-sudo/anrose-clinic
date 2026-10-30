@@ -1,10 +1,12 @@
 /* Anrose — premium editorial beauty: ivory surfaces, champagne accents, quiet motion. */
+/* Heading font served from assets/fonts so phones match the desktop. */
+@font-face { font-family: "Beautique Display"; src: url("assets/fonts/beautique-display-regular.otf") format("opentype"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Beautique Display"; src: url("assets/fonts/beautique-display-italic.otf") format("opentype"); font-weight: 400; font-style: italic; font-display: swap; }
 :root {
   --milk: #fffdf9; --ivory: #f9f5ee; --cream: #f3ece1; --sand: #e8dccb; --beige: #ead8c3;
   --gold: #A76B03; --brown: #9B621C; --champagne: #C8A16A; --deep: #6f4512;
   --ink: #2f2721; --muted: #7a6f64; --line: rgba(155,98,28,.15); --line-soft: rgba(155,98,28,.09);
-  /* Webfont only: a locally installed Beautique Display made desktops differ from phones. */
-  --serif: "Cormorant Garamond", Georgia, serif;
+  --serif: "Beautique Display", Georgia, serif;
   --sans: "Barlow", "Helvetica Neue", Arial, sans-serif;
   --ease: cubic-bezier(.22,1,.36,1);
   --ease-in-out: cubic-bezier(.65,0,.35,1);
@@ -38,9 +40,9 @@ h1,h2,h3 { font-family: var(--serif); font-weight: 500; letter-spacing: -.02em; 
 h1 { font-size: clamp(46px, 5.2vw, 78px); line-height: 1.04; margin-bottom: 0; }
 h2 { font-size: clamp(36px, 3.7vw, 56px); line-height: 1.08; margin-bottom: 0; }
 h3 { font-size: 28px; line-height: 1.2; margin-bottom: 12px; }
-/* Cormorant defaults to old-style figures; prices and counters read better lining. */
+/* Prices and counters read better with lining figures. */
 h1,h2,h3,.campaign-offer-price,.hero-meta strong,.technology-name,.consult-points strong,.space-caption strong,.faq-item summary { font-variant-numeric: lining-nums; }
-h1 em,h2 em,h3 em { font-style: italic; font-weight: 500; color: var(--brown); letter-spacing: -.01em; }
+h1 em,h2 em,h3 em { font-style: italic; font-weight: 400; color: var(--brown); letter-spacing: -.01em; }
 em { font-style: normal; color: var(--brown); }
 .eyebrow,.mini-label { display: inline-flex; align-items: center; gap: 12px; font: 500 11px/1.6 var(--sans); letter-spacing: .22em; text-transform: uppercase; color: var(--brown); }
 .eyebrow::before,.mini-label::before { content: ''; width: 28px; height: 1px; background: currentColor; opacity: .55; }

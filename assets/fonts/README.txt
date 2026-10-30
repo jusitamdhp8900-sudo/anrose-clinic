@@ -1,2 +1,2 @@
-Đặt font Beautique Display và Barlow bản quyền của bạn vào thư mục này nếu muốn self-host.
-Không có font file nào được đóng gói trong source.
+Beautique Display (Regular, Italic) dùng cho tiêu đề website, khai báo bằng @font-face trong styles.css.
+Barlow tải từ Google Fonts.
