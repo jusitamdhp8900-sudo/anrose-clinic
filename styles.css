@@ -177,7 +177,10 @@ em { font-style: normal; color: var(--brown); }
 @keyframes float { from { transform: translateY(0); } to { transform: translateY(-10px); } }
 
 /* ---------- Services ---------- */
-.service-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 28px; }
+.service-grid { display: grid; grid-template-columns: repeat(6, minmax(0,1fr)); gap: 28px; }
+.service-card { grid-column: span 2; }
+/* A lone card on the last row sits in the middle. */
+.service-card:last-child:nth-child(3n+1) { grid-column: 3 / span 2; }
 .service-card { display: flex; flex-direction: column; overflow: hidden; border-radius: var(--radius-lg); background: var(--milk); border: 1px solid rgba(255,255,255,.9); box-shadow: var(--shadow-sm); transition: transform .7s var(--ease), box-shadow .7s var(--ease), opacity 1s var(--ease); }
 .service-media { margin: 10px 10px 0; overflow: hidden; border-radius: 20px; background: var(--cream); }
 .service-media img { aspect-ratio: 1 / 1; object-fit: cover; transition: transform 1.2s var(--ease); }
@@ -443,6 +446,7 @@ html:not(.js) .reveal { opacity: 1; transform: none; }
 }
 @media (max-width:760px) {
   .service-grid { grid-template-columns: 1fr; gap: 20px; }
+  .service-card,.service-card:last-child:nth-child(3n+1) { grid-column: auto; }
   .service-card { flex-direction: row; align-items: stretch; }
   .service-media { flex: 0 0 38%; margin: 10px 0 10px 10px; }
   .service-media img { height: 100%; }
@@ -503,11 +507,13 @@ html:not(.js) .reveal { opacity: 1; transform: none; }
   .hero-glass-icon { width: 42px; height: 42px; }
   .hero-glass-text strong { font-size: 14px; }
   .hero-orbit { display: none; }
-  .service-card { flex-direction: column; }
-  .service-media { margin: 8px 8px 0; flex: none; }
-  .service-media img { aspect-ratio: 4 / 3; height: auto; }
-  .service-body { padding: 22px 20px 24px; }
-  .service-body h3 { font-size: 26px; }
+  /* Seven services: compact image-left cards keep the list short on phones. */
+  .service-grid { gap: 14px; }
+  .service-media { flex-basis: 34%; margin: 8px 0 8px 8px; border-radius: 16px; }
+  .service-body { padding: 16px 16px 18px; }
+  .service-body > span { margin-bottom: 6px; }
+  .service-body h3 { font-size: 22px; margin-bottom: 6px; }
+  .service-body p { font-size: 14px; line-height: 1.6; margin-bottom: 12px; }
   .technology-carousel { padding: 8px; border-radius: 26px; }
   .technology-slide .tech-copy { padding: 22px 14px 12px; }
   .technology-slide .tech-copy h2 { font-size: 38px; }
