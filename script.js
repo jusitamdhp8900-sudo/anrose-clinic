@@ -152,6 +152,80 @@ document.querySelectorAll('a[data-service]').forEach((link) => {
   link.addEventListener('click', () => selectService(link.dataset.service));
 });
 
+// Services slider: arrows step one card at a time, touch/trackpad scroll natively, mouse can drag.
+const serviceSlider = document.querySelector('.service-slider');
+if (serviceSlider) {
+  const rail = serviceSlider.querySelector('.service-grid');
+  const cards = [...rail.querySelectorAll('.service-card')];
+  const previous = serviceSlider.querySelector('.service-prev');
+  const next = serviceSlider.querySelector('.service-next');
+  const bar = serviceSlider.querySelector('.service-progress span');
+  const step = () => cards[1].offsetLeft - cards[0].offsetLeft;
+  const maxScroll = () => rail.scrollWidth - rail.clientWidth;
+  function update() {
+    const max = maxScroll();
+    previous.disabled = rail.scrollLeft <= 2;
+    next.disabled = rail.scrollLeft >= max - 2;
+    const visible = rail.clientWidth / rail.scrollWidth;
+    bar.style.width = `${visible * 100}%`;
+    bar.style.transform = `translateX(${max > 0 ? rail.scrollLeft / max * (1 / visible - 1) * 100 : 0}%)`;
+  }
+  function move(direction) {
+    const index = Math.round(rail.scrollLeft / step()) + direction;
+    rail.scrollTo({ left: Math.max(0, Math.min(maxScroll(), index * step())), behavior: reducedMotion.matches ? 'instant' : 'smooth' });
+  }
+  previous.addEventListener('click', () => move(-1));
+  next.addEventListener('click', () => move(1));
+  rail.addEventListener('keydown', (event) => {
+    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+    event.preventDefault();
+    move(event.key === 'ArrowLeft' ? -1 : 1);
+  });
+  rail.addEventListener('scroll', update, { passive: true });
+  new ResizeObserver(update).observe(rail);
+
+  // Mouse dragging; a drag never counts as a click on the "Tư vấn dịch vụ" links.
+  let drag = null;
+  let suppressClick = false;
+  rail.addEventListener('pointerdown', (event) => {
+    if (event.pointerType !== 'mouse' || event.button !== 0) return;
+    drag = { x: event.clientX, left: rail.scrollLeft, id: event.pointerId, moved: false };
+    suppressClick = false;
+  });
+  rail.addEventListener('pointermove', (event) => {
+    if (!drag) return;
+    const distance = event.clientX - drag.x;
+    if (Math.abs(distance) > 6 && !drag.moved) {
+      drag.moved = true;
+      rail.setPointerCapture(drag.id);
+      rail.classList.add('is-dragging');
+    }
+    if (drag.moved) rail.scrollLeft = drag.left - distance;
+  });
+  function endDrag(event) {
+    if (!drag) return;
+    const { moved, left } = drag;
+    const distance = event.clientX - drag.x;
+    drag = null;
+    rail.classList.remove('is-dragging');
+    if (!moved) return;
+    suppressClick = true;
+    setTimeout(() => { suppressClick = false; }, 0);
+    const start = Math.round(left / step());
+    const target = start + (Math.abs(distance) > 45 ? (distance < 0 ? 1 : -1) : 0);
+    rail.scrollTo({ left: Math.max(0, Math.min(maxScroll(), target * step())), behavior: 'smooth' });
+  }
+  rail.addEventListener('pointerup', endDrag);
+  rail.addEventListener('pointercancel', () => { drag = null; rail.classList.remove('is-dragging'); });
+  rail.addEventListener('dragstart', event => event.preventDefault());
+  rail.addEventListener('click', (event) => {
+    if (suppressClick) { event.preventDefault(); event.stopImmediatePropagation(); }
+  }, true);
+
+  serviceSlider.querySelector('.service-controls').hidden = false;
+  update();
+}
+
 // Lightbox: opens images from the same section as a small gallery with arrows, keys and swipe.
 const lightbox = document.querySelector('.lightbox');
 const lightboxImage = document.querySelector('.lightbox-image');
