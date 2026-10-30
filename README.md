@@ -36,23 +36,28 @@ Sau đó mở `http://localhost:8000`.
 
 ## Nhận đăng ký tư vấn qua Gmail
 
-Khi khách điền form "Đặt lịch tư vấn" và bấm **Gửi đăng ký tư vấn**, thông tin (họ tên, số điện thoại, dịch vụ, thời gian, ghi chú) được gửi thẳng về Gmail của phòng khám qua dịch vụ miễn phí [FormSubmit](https://formsubmit.co). Không cần tạo tài khoản hay mã khóa.
+Khi khách điền form "Đặt lịch tư vấn" và bấm **Gửi đăng ký tư vấn**, thông tin được gửi tới một Google Apps Script chạy trong tài khoản Google của phòng khám. Script gửi email từ Gmail đó về địa chỉ `NOTIFY_EMAIL`, tiêu đề "Đăng ký tư vấn mới: [Tên] – [SĐT]". Không qua dịch vụ bên thứ ba.
 
-Cài đặt một lần:
+Code của script nằm trong `apps-script/Code.gs`.
 
-1. Mở `index.html`, tìm `data-formsubmit=""` và điền Gmail nhận đăng ký vào giữa hai dấu ngoặc kép:
+Cài đặt một lần (khoảng 5 phút):
 
-   ```html
-   <form class="contact-form" method="post" data-formsubmit="ten-gmail@gmail.com">
-   ```
+1. Đăng nhập Google, mở https://script.google.com và bấm **Dự án mới** (New project).
+2. Xoá hết code mẫu, dán toàn bộ nội dung `apps-script/Code.gs`. Đổi tên dự án thành "Anrose booking" rồi bấm biểu tượng **Lưu**.
+3. Ở thanh trên, chọn hàm **testSend** rồi bấm **Chạy** (Run). Google hỏi quyền: bấm **Xem lại quyền** → chọn tài khoản → **Nâng cao** → **Đi tới Anrose booking (không an toàn)** → **Cho phép**. Cảnh báo "không an toàn" là bình thường với script tự viết. Gmail sẽ nhận một email mẫu.
+4. Bấm **Triển khai** (Deploy) → **Tùy chọn triển khai mới** (New deployment) → biểu tượng bánh răng → **Ứng dụng web** (Web app).
+   - Thực thi dưới dạng (Execute as): **Tôi** (Me)
+   - Người có quyền truy cập (Who has access): **Bất kỳ ai** (Anyone)
+   
+   Bấm **Triển khai** và copy **URL ứng dụng web** (dạng `https://script.google.com/macros/s/.../exec`).
+5. Mở `index.html`, tìm `data-endpoint=""` và dán URL vào giữa hai dấu ngoặc kép.
+6. Đưa website lên, gửi thử một đăng ký và kiểm tra Gmail.
 
-2. Đưa website lên, rồi tự gửi thử một đăng ký trên trang. Lần đầu form sẽ báo "Chưa gửi được", đây là bình thường.
-3. Mở Gmail đó, tìm email từ FormSubmit (xem cả mục Spam/Quảng cáo) và bấm **Activate Form**.
-4. Gửi thử lại một lần nữa: từ giờ mỗi đăng ký sẽ về Gmail với tiêu đề "Đăng ký tư vấn mới: [Tên] – [SĐT]".
-
-Nên làm thêm: sau khi kích hoạt, FormSubmit gửi một mã ngẫu nhiên (dạng `a1b2c3d4...`). Thay địa chỉ Gmail trong `data-formsubmit` bằng mã đó để Gmail không lộ trong mã nguồn trang.
-
-Nếu gửi lỗi (mất mạng, chưa kích hoạt…), form báo lỗi và mời khách gọi hotline 0869 833 868. Thông tin không được lưu trên website.
+Lưu ý:
+- Đổi Gmail nhận thông báo: sửa `NOTIFY_EMAIL` trong script, rồi **Triển khai** → **Quản lý triển khai** → bút chì → Phiên bản: **Phiên bản mới** → **Triển khai**. URL giữ nguyên.
+- Gmail cá nhân gửi được khoảng 100 email mỗi ngày qua Apps Script.
+- Mở URL ứng dụng web trên trình duyệt sẽ thấy `"Anrose booking đang hoạt động"`: dùng để kiểm tra script còn chạy.
+- Nếu gửi lỗi, form báo lỗi và mời khách gọi hotline 0869 833 868. Thông tin không được lưu trên website.
 
 ## Chỉnh bằng Claude / Cursor
 

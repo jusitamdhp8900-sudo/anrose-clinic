@@ -501,8 +501,8 @@ if (campaign) {
   scheduleAutoplay();
 }
 
-// Booking form: each request is emailed straight to the clinic through FormSubmit.
-// Nothing is put into URLs or stored on the website.
+// Booking form: each request goes to the clinic's Google Apps Script (apps-script/Code.gs),
+// which emails it to the clinic's Gmail. Nothing is put into URLs or stored on the website.
 const contactForm = document.querySelector('.contact-form');
 if (contactForm) {
   const nameInput = contactForm.querySelector('[name="name"]');
@@ -512,7 +512,7 @@ if (contactForm) {
   const timeInput = contactForm.querySelector('[name="time"]');
   const noteInput = contactForm.querySelector('[name="note"]');
   const honeypot = contactForm.querySelector('[name="_honey"]');
-  const inbox = (contactForm.dataset.formsubmit || '').trim();
+  const endpoint = (contactForm.dataset.endpoint || '').trim();
   // Appointments can only be requested from today onwards (local date, not UTC).
   if (dateInput) {
     const now = new Date();
@@ -546,33 +546,20 @@ if (contactForm) {
     };
   }
   async function emailBooking(details) {
-    if (!inbox) {
-      console.warn('Booking form: set data-formsubmit on .contact-form to the Gmail that should receive bookings.');
+    if (!endpoint) {
+      console.warn('Booking form: set data-endpoint on .contact-form to the Google Apps Script web app URL (see README).');
       return false;
     }
     const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 15000);
+    const timer = setTimeout(() => controller.abort(), 20000);
     try {
-      const response = await fetch(`https://formsubmit.co/ajax/${inbox}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({
-          _subject: `Đăng ký tư vấn mới: ${details.name} – ${details.phone}`,
-          _template: 'table',
-          _captcha: 'false',
-          'Họ và tên': details.name,
-          'Số điện thoại': details.phone,
-          'Dịch vụ quan tâm': details.service,
-          'Thời gian mong muốn': details.when || 'Linh hoạt',
-          'Ghi chú': details.note || '—'
-        }),
-        signal: controller.signal
-      });
+      // A plain-text body keeps this a "simple" request, which Apps Script accepts without a CORS preflight.
+      const response = await fetch(endpoint, { method: 'POST', body: JSON.stringify(details), signal: controller.signal });
       const result = await response.json().catch(() => ({}));
-      // FormSubmit answers success as the string "true"; until the inbox is activated it explains why here.
-      if (String(result.success) !== 'true') console.warn('Booking form:', result.message || response.status);
-      return response.ok && String(result.success) === 'true';
-    } catch {
+      if (result.success !== true) console.warn('Booking form:', result.message || response.status);
+      return response.ok && result.success === true;
+    } catch (error) {
+      console.warn('Booking form:', error);
       return false;
     } finally {
       clearTimeout(timer);
