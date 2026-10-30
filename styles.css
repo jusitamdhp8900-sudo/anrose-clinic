@@ -341,7 +341,7 @@ em { font-style: normal; color: var(--brown); }
 .faq-list { display: grid; gap: 12px; }
 .faq-item { border-radius: 20px; background: var(--milk); border: 1px solid rgba(255,255,255,.9); box-shadow: var(--shadow-sm); transition: box-shadow .5s var(--ease), background-color .3s; }
 .faq-item[open] { background: #fff; box-shadow: var(--shadow); }
-.faq-item summary { position: relative; display: block; padding: 22px 64px 22px 26px; list-style: none; cursor: pointer; font-family: var(--serif); font-size: 22px; font-weight: 500; line-height: 1.3; color: var(--ink); transition: color .3s; }
+.faq-item summary { position: relative; display: block; padding: 22px 64px 22px 26px; list-style: none; cursor: pointer; font-family: var(--sans); font-size: 17px; font-weight: 500; line-height: 1.5; color: var(--ink); transition: color .3s; }
 .faq-item summary::-webkit-details-marker { display: none; }
 .faq-item summary::after { content: ''; position: absolute; right: 22px; top: 50%; width: 30px; height: 30px; margin-top: -15px; border-radius: 50%; background: var(--cream) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239B621C' stroke-width='1.8' stroke-linecap='round'%3E%3Cpath d='M12 6v12M6 12h12'/%3E%3C/svg%3E") center / 16px no-repeat; transition: transform .5s var(--ease), background-color .3s; }
 .faq-item[open] summary::after { transform: rotate(135deg); }
@@ -611,7 +611,7 @@ html:not(.js) .reveal { opacity: 1; transform: none; }
   .mobile-bar a:active { transform: scale(.97); }
   .mobile-bar svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
   .mobile-bar .mobile-bar-primary { color: #fff; border-color: transparent; background: linear-gradient(135deg, #a96e1f, var(--brown) 60%, var(--deep)); box-shadow: 0 8px 18px -10px rgba(155,98,28,.8); }
-  .faq-item summary { font-size: 19px; padding: 18px 56px 18px 20px; }
+  .faq-item summary { font-size: 16px; padding: 18px 56px 18px 20px; }
   .faq-item summary::after { right: 16px; }
   .faq-answer p { padding: 0 20px 20px; font-size: 15px; }
   .faq-contact .btn { flex: 1 1 100%; }
