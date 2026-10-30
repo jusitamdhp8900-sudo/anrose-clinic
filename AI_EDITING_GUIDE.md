@@ -4,6 +4,8 @@
 - Premium Beauty / Medical Aesthetic / Korean Beauty Editorial.
 - Nền trắng sữa, ivory, kem sáng; tránh vàng cam nặng.
 - Accent chính: #A76B03, #9B621C, champagne #C8A16A.
+- Màu chữ: tiêu đề và chữ chính xanh lá lấy từ ảnh bìa (`--green` #0a5c3b, `--ink` #0d4a31); chữ phụ nâu (`--muted` #85623f). Phần nghiêng trong tiêu đề giữ nâu `--brown`.
+- Giao diện kính mờ (glassmorphism): khung, thẻ, nút phụ dùng `--glass`, `--glass-blur`, `--glass-edge`, `--glass-shadow` (khối "Glassmorphism" trong `styles.css`). Các vòng tròn trang trí cố định nằm ở `body::before`; nền section để trong suốt để kính thấy được chúng.
 - Typography: Beautique Display cho heading (self-host trong `assets/fonts/`, khai báo `@font-face` đầu `styles.css`), Barlow cho body qua Google Fonts. Chỉ có bản Regular và Italic: giữ heading ở weight 400–500, đừng dùng 600+ (trình duyệt sẽ tự làm đậm giả).
 - Bố cục thoáng, ít họa tiết, nhiều negative space.
 - Animation nhẹ, không lạm dụng parallax/glow.
